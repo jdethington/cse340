@@ -7,6 +7,7 @@ import { getAllProjects } from './src/models/projects.js';
 
 // Define the application environment
 const NODE_ENV = process.env.NODE_ENV?.toLowerCase() || 'production';
+const ENABLE_SQL_LOGGING = process.env.ENABLE_SQL_LOGGING?.toLowerCase() === 'true';
 
 // Define the port number the server will lister on
 const PORT = process.env.PORT || 3000;
@@ -39,6 +40,7 @@ app.get('/', async (req, res) => {
 
 app.get('/organizations', async (req, res) => {
     const organizations = await getAllOrganizations();
+    // console.log('Organizations:', organizations);
     const title = 'Our Partner Organizations';
 
     res.render('organizations', { title, organizations });
@@ -46,6 +48,7 @@ app.get('/organizations', async (req, res) => {
 
 app.get('/projects', async (req, res) => {
     const projects = await getAllProjects();
+    // console.log('Projects:', projects);
     const title = 'Service Projects';
     res.render('projects', { title, projects });
 });
@@ -69,7 +72,7 @@ app.listen(PORT, async () => {
     try {
         await testConnection();
         console.log(`Server is running at http://127.0.0.1:${PORT}`);
-        console.log(`Environment: ${NODE_ENV}`);
+        console.log(`Environment: ${NODE_ENV}   SQL Logging: ${ENABLE_SQL_LOGGING}`);
     } catch (error) {
         console.error('Error connecting to the database:', error);
     }
