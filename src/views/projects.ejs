@@ -7,7 +7,7 @@
     <ul class="projects-grid">
       <% projects.forEach(project=> { %>
         <li class="project-card">
-          Date: <%= project.date %>
+          Date: <%= project.date_long %>
             <strong>
               <%= project.title %>
             </strong> (<%= project.organization_name %>)
@@ -22,7 +22,7 @@
                 <%= project.description %>
               </p>
               <p><strong>Date:</strong>
-                <%= project.date %>
+                <%= project.date_short %>
               </p>
               <p><strong>Location:</strong>
                 <%= project.location %>

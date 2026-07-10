@@ -8,7 +8,8 @@ const getAllProjects = async () => {
             p.title,
             p.description,
             p.location,
-            TO_CHAR(p.project_date, 'Month DD, YYYY') AS date,
+            TO_CHAR(p.project_date, 'Month DD, YYYY') AS date_long,
+            TO_CHAR(p.project_date, 'MM-DD-YYYY') AS date_short,
             p.organization_id,
             o.name AS organization_name
         FROM public.project p

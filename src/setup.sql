@@ -55,11 +55,36 @@ CREATE TABLE project (
         ON UPDATE NO ACTION
 );
  
+ 
+ -- Table: category
+CREATE TABLE category (
+    category_id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL UNIQUE,
+    description TEXT NULL,
+    created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Junction table: project_category (Many-to-Many)
+CREATE TABLE project_category (
+    project_id INTEGER NOT NULL,
+    category_id INTEGER NOT NULL,
+    PRIMARY KEY (project_id, category_id),
+    CONSTRAINT fk_project_category_project
+        FOREIGN KEY (project_id) 
+        REFERENCES project (project_id) 
+        ON DELETE CASCADE,
+    CONSTRAINT fk_project_category_category
+        FOREIGN KEY (category_id) 
+        REFERENCES category (category_id) 
+        ON DELETE CASCADE
+);
+
 -- Create index for foreign key performance
 CREATE INDEX fk_service_project_organization_idx ON project (organization_id ASC);
 
-
-
+-- Performance indexes
+CREATE INDEX idx_project_category_project ON project_category (project_id);
+CREATE INDEX idx_project_category_category ON project_category (category_id);
 
 -- =====================================================
 -- 2. SEED DATA INSERTIONS
@@ -109,3 +134,36 @@ INSERT INTO project (title, description, location, project_date, organization_id
 ('Community Winter Coat Distribution', 'An outdoor handout event providing winter apparel and blankets to families in need.', 'St. Jude Plaza Parking Lot', '2026-11-15', 3),
 ('Holiday Toy Drive Wrap-up', 'Wrapping and organizing holiday gifts for foster youth and low-income families.', '789 Oak St', '2026-12-18', 3);
  
+
+
+-- =====================================================
+-- 3. ADD CATEGORIES & ASSOCIATIONS
+-- =====================================================
+
+-- Insert relevant service project categories
+INSERT INTO category (name, description) VALUES
+('Community Infrastructure', 'Construction, renovation, and accessibility projects'),
+('Environmental Sustainability', 'Gardening, planting, composting, and eco-friendly initiatives'),
+('Food Security', 'Food drives, harvesting, and nutrition support'),
+('Education & Youth', 'Tutoring, workshops, and youth development programs'),
+('Health & Wellness', 'Senior support, accessibility, and community care'),
+('Disaster & Emergency Relief', 'Shelter support and immediate aid distribution')
+ON CONFLICT (name) DO NOTHING;
+
+-- Associate projects with categories (each project gets at least one)
+INSERT INTO project_category (project_id, category_id)
+SELECT 
+    p.project_id,
+    c.category_id
+FROM project p
+CROSS JOIN category c
+WHERE 
+    -- BrightFuture projects (infrastructure)
+    (p.organization_id = 1 AND c.name IN ('Community Infrastructure', 'Health & Wellness'))
+    OR
+    -- GreenHarvest projects (environment + food)
+    (p.organization_id = 2 AND c.name IN ('Environmental Sustainability', 'Food Security', 'Education & Youth'))
+    OR
+    -- UnityServe projects (direct service)
+    (p.organization_id = 3 AND c.name IN ('Food Security', 'Education & Youth', 'Health & Wellness', 'Disaster & Emergency Relief'))
+ON CONFLICT DO NOTHING;
