@@ -16,9 +16,7 @@ const pool = new Pool({
     // ssl: true
      ssl: {
    rejectUnauthorized: false
-  }
-
-    
+  }  
 });
 
 /**
