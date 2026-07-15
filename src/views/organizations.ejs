@@ -6,14 +6,15 @@
         <h2>Here are a few of our partner organizations:</h2>
         <ul class="organizations-list">
 
-            <% organizations.forEach(org=> { %>
+            <% organizations.forEach(organization=> { %>
                 <li>
-                    <img src="/images/<%= org.logo_filename %>" alt="<%= org.name %> logo">
-                    <strong>
-                        <%= org.name %>
-                    </strong>: <%= org.contact_email %>
-                        <% }); %>
+                    <img src="/images/<%= organization.logo_filename %>" alt="<%= organization.name %> logo">
+                    <a href="/organization/<%= organization.organization_id %>">
+                        <strong>
+                            <%= organization.name %>
+                        </strong></a>: <%= organization.contact_email %>
                 </li>
+                <% }); %>
         </ul>
     </main>
     <%- include('partials/footer') %>
