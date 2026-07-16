@@ -1,4 +1,9 @@
 # cse340
+GitHub link:
+https://github.com/jdethington/cse340
+
+Render link:
+https://cse340-jde.onrender.com/
 
 ---
 
