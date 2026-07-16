@@ -46,8 +46,22 @@ app.use((req, res, next) => {
 // Use the imported router to handle routes
 app.use(router);
 
+// Add this BEFORE your general 404 handler
+    // Removes errors from Dev Tools Inspect
+// app.use((req, res, next) => {
+//     if (req.path === '/.well-known/appspecific/com.chrome.devtools.json') {
+//         return res.status(404).end();   // Silent 404
+//     }
+//     next();
+// });
+
 // Catch-all route for 404 errors
 app.use((req, res, next) => {
+    // Removes errors from Dev Tools Inspect
+    if (req.path.startsWith('/.well-known/')) {
+        return res.status(404).end();
+    }
+    // 
     const err = new Error('Page Not Found');
     err.status = 404;
     next(err);

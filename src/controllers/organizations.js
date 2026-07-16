@@ -11,8 +11,10 @@ const showOrganizationsPage = async (req, res) => {
     res.render('organizations', { title, organizations });
 };
 
+// 
 const showOrganizationDetailsPage = async (req, res) => {
     const organizationId = req.params.id;
+    // Could this be reduced to 1 parameter?
     const organizationDetails = await getOrganizationDetails(organizationId);
     const projects = await getProjectsByOrganizationId(organizationId);
     const title = 'Organization Details';

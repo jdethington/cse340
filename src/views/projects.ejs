@@ -7,9 +7,9 @@
     <ul class="projects-grid">
       <% projects.forEach(project=> { %>
         <li class="project-card">
-          <h3>
-            <%= project.title %>
-          </h3>
+          <h3><a href="/project/<%= project.project_id %>">
+              <%= project.title %>
+            </a></h3>
           <p>
             (<%= project.organization_name %>)
           </p>
