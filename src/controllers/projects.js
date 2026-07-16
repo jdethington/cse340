@@ -17,10 +17,10 @@ const showProjectsPage = async (req, res) => {
 // Shows the details of a single service project
 const showProjectDetailsPage = async (req,res) => {
     const projectID = req.params.id;
-    const projects = await getProjectDetails(projectID);
+    const project = await getProjectDetails(projectID);
     const title = 'Service Project Details';
-    console.log("Project data:", projects);
-    res.render('project', { title, projects });
+    console.log("Project data:", project);
+    res.render('project', { title, project });
 }
 
 // Export any controller functions
