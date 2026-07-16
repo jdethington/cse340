@@ -1,45 +1,31 @@
 <%- include('partials/header') %>
     <main>
-        <h1>
-            <%= title %>
-        </h1>
+        <div class="container">
 
-        <h2>
-            <%= category.name %>
-        </h2>
-        <p>
-            <%= category.description %>
-        </p>
+            <h1>
+                <%= title %>
+            </h1>
 
-        <ul class="categories-list">
-            <% projects.forEach(project=> { %>
-                <li class="project-card">
-                    <p><a href="/project/<%= project.project_id %>">
-                            <%= project.title %>
-                        </a>
-                        ( <%= project.date_short %> )
-                    </p>
-                    <!-- <p>
-                        (<%= project.organization_name %>)
-                    </p>
-                    <p><strong>Date:</strong>
-                        <%= project.date_short %>
-                    </p>
-                    <p><strong>Location:</strong>
-                        <%= project.location %>
-                    </p>
-                    <p>
-                        <%= project.description %>
-                    </p> -->
-                </li>
-                <% }); %>
+            <h2>
+                <%= category.name %>
+            </h2>
+            <p>
+                <%= category.description %>
+            </p>
+
+            <ul class="categories-list">
+                <% projects.forEach(project=> { %>
+                    <li class="project-card">
+                        <p><a href="/project/<%= project.project_id %>">
+                                <%= project.title %>
+                            </a>
+                            <br> ( <%= project.date_short %> )
+                        </p>
+                    </li>
+                    <% }); %>
 
 
-        </ul>
+            </ul>
+        </div>
     </main>
     <%- include('partials/footer') %>
-        <!-- <li>Animal Welfare</li>
-            <li>Environmental</li>
-            <li>Educational</li>
-            <li>Community Service</li>
-            <li>Health and Wellness</li> -->

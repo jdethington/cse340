@@ -1,39 +1,43 @@
 <%- include('partials/header') %>
   <main>
-    <h1>
-      <%= title %>
-    </h1>
+    <div class="container">
 
-    <h2>
-      <%= project.title %>
-    </h2>
-    <!-- ADD link to Categories -->
-    <!-- <p><strong>Categories: </strong> -->
-    <p><strong>Description: </strong>
-      <%= project.description %>
-    </p>
-    <ul>
-      <% categories.forEach(category=> { %>
-        <li>
-          <a href="/category/<%= category.category_id %>">
-            <%= category.name %>
-          </a>
-        </li>
-        <% }); %>
-    </ul>
+      <h1>
+        <%= title %>
+      </h1>
 
-    <p><strong>Date:</strong>
-      <%= project.date_short %>
-    </p>
-    <p><strong>Location:</strong>
-      <%= project.location %>
-    </p>
-    <p><strong>Partner Organization: </strong>
-      <a href="/organization/<%= project.organization_id  %>">
-        <%= project.organization_name %>
-      </a>
-    </p>
+      <h2>
+        <%= project.title %>
+      </h2>
 
 
+      <p><strong>Description: </strong>
+        <%= project.description %>
+      </p>
+
+      <h3>Categories</h3>
+      <ul class="categories-list">
+        <% categories.forEach(category=> { %>
+          <li class="project-card">
+            <a href="/category/<%= category.category_id %>">
+              <%= category.name %>
+            </a>
+          </li>
+          <% }); %>
+      </ul>
+
+      <p><strong>Date:</strong>
+        <%= project.date_short %>
+      </p>
+      <p><strong>Location:</strong>
+        <%= project.location %>
+      </p>
+      <p><strong>Partner Organization: </strong>
+        <a href="/organization/<%= project.organization_id  %>">
+          <%= project.organization_name %>
+        </a>
+      </p>
+
+    </div>
   </main>
   <%- include('partials/footer') %>
