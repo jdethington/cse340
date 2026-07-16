@@ -16,7 +16,7 @@ const showProjectsPage = async (req, res) => {
 
 // Shows the details of a single service project
 const showProjectDetailsPage = async (req,res) => {
-    const projectID = parseInt(req.params.id);
+    const projectID = req.params.id;
     const projects = await getProjectDetails(projectID);
     const title = 'Service Project Details';
     console.log("Project data:", projects);
