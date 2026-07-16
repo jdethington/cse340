@@ -7,7 +7,7 @@ const getAllOrganizations = async () => {
       description,
       contact_email,
       logo_filename
-    FROM public.organization;
+    FROM organization;
   `;
 
   const result = await db.query(query);
@@ -22,7 +22,7 @@ const getOrganizationDetails = async (organizationId) => {
       description,
       contact_email,
       logo_filename
-    FROM public.organization
+    FROM organization
     WHERE organization_id = $1;
   `;
 

@@ -4,10 +4,10 @@
             <%= title %>
         </h1>
 
+        <img src="/images/<%= organizationDetails.logo_filename %>" alt="<%= organizationDetails.name %> logo">
         <h2>
             <%= organizationDetails.name %>
         </h2>
-        <img src="/images/<%= organizationDetails.logo_filename %>" alt="<%= organizationDetails.name %> logo">
 
         <p>Description: <%= organizationDetails.description %>
         </p>
@@ -17,7 +17,8 @@
             <% projects.forEach(project=> { %>
                 <li><a href="/project/<%= project.project_id %>">
                         <%= project.title %>
-                    </a></li>
+                    </a>
+                </li>
                 <% }); %>
         </ul>
     </main>

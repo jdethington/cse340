@@ -16,11 +16,11 @@ const getAllCategories = async () => {
 const getCategory = async (categoryId) => {
   const query = `
     SELECT
-      category_id AS id,
+      category_id,
       name,
       description
     FROM category
-    WHERE id = $1;
+    WHERE category_id = $1;
   `;
   const queryParams = [categoryId];
   const result = await db.query(query, queryParams);
@@ -53,14 +53,15 @@ const getAllServiceProjectsForCategory = async (categoryId) => {
       p.title,
       p.description,
       p.location,
-      p.project_date,
+      TO_CHAR(p.project_date, 'Month DD, YYYY') AS date_long,
+      TO_CHAR(p.project_date, 'MM-DD-YYYY') AS date_short,
       p.organization_id,
       o.name AS organization_name
     FROM project p
     JOIN project_category pc ON p.project_id = pc.project_id
     JOIN organization o ON p.organization_id = o.organization_id
     WHERE pc.category_id = $1
-    ORDER BY p.project_date DESC;
+    ORDER BY p.project_date ASC;
   `;
   const queryParams = [categoryId];
   const result = await db.query(query, queryParams);

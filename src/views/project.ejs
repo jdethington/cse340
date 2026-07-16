@@ -4,26 +4,35 @@
       <%= title %>
     </h1>
 
-      <h2>
-        <%= project.title %>
-      </h2>
-      <!-- ADD link to Categories -->
-      <p><strong>Categories: </strong></p>
+    <h2>
+      <%= project.title %>
+    </h2>
+    <!-- ADD link to Categories -->
+    <!-- <p><strong>Categories: </strong> -->
+    <p><strong>Description: </strong>
+      <%= project.description %>
+    </p>
+    <ul>
+      <% categories.forEach(category=> { %>
+        <li>
+          <a href="/category/<%= category.category_id %>">
+            <%= category.name %>
+          </a>
+        </li>
+        <% }); %>
+    </ul>
 
-      <p><strong>Description: </strong>
-        <%= project.description %>
-      </p>
-      <p><strong>Date:</strong>
-        <%= project.date_short %>
-      </p>
-      <p><strong>Location:</strong>
-        <%= project.location %>
-      </p>
-      <p><strong>Partner Organization: </strong>
-        <a href="/organization/<%= project.organization_id  %>">
-          <%= project.organization_name %>
-        </a>
-      </p>
+    <p><strong>Date:</strong>
+      <%= project.date_short %>
+    </p>
+    <p><strong>Location:</strong>
+      <%= project.location %>
+    </p>
+    <p><strong>Partner Organization: </strong>
+      <a href="/organization/<%= project.organization_id  %>">
+        <%= project.organization_name %>
+      </a>
+    </p>
 
 
   </main>

@@ -8,16 +8,17 @@
 
             <% categories.forEach(category=> { %>
                 <li>
-                    <%= category.name %>
-                        <!-- <br>
-                        <%= category.description %> -->
+                    <h3><a href="/category/<%= category.id %>">
+                            <%= category.name %>
+                        </a>
+                    </h3>
                 </li>
                 <% }); %>
-                    <!-- <li>Animal Welfare</li>
-                    <li>Environmental</li>
-                    <li>Educational</li>
-                    <li>Community Service</li>
-                    <li>Health and Wellness</li> -->
         </ul>
     </main>
     <%- include('partials/footer') %>
+        <!-- <li>Animal Welfare</li>
+        <li>Environmental</li>
+        <li>Educational</li>
+        <li>Community Service</li>
+        <li>Health and Wellness</li> -->

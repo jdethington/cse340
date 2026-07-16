@@ -3,6 +3,8 @@ import { getAllOrganizations, getOrganizationDetails } from "../models/organizat
 import { getProjectsByOrganizationId } from '../models/projects.js';
 
 // Define any controller functions
+
+// /organizations
 const showOrganizationsPage = async (req, res) => {
     const organizations = await getAllOrganizations();
     // console.log('Organizations:', organizations);
@@ -11,7 +13,7 @@ const showOrganizationsPage = async (req, res) => {
     res.render('organizations', { title, organizations });
 };
 
-// 
+// /organization/[id]
 const showOrganizationDetailsPage = async (req, res) => {
     const organizationId = req.params.id;
     // Could this be reduced to 1 parameter?
