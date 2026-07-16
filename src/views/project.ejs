@@ -3,11 +3,13 @@
     <h1>
       <%= title %>
     </h1>
-    <% projects.forEach(project=> { %>
 
       <h2>
         <%= project.title %>
       </h2>
+      <!-- ADD link to Categories -->
+      <p><strong>Categories: </strong></p>
+
       <p><strong>Description: </strong>
         <%= project.description %>
       </p>
@@ -22,7 +24,6 @@
           <%= project.organization_name %>
         </a>
       </p>
-      <% }); %>
 
 
   </main>

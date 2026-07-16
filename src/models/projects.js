@@ -84,7 +84,8 @@ const getProjectDetails = async (id) => {
   const queryParams = [id];
   const result = await db.query(query, queryParams);
 
-  return result.rows;
+  // Return the first row of the result set, or null if no rows are found
+  return result.rows.length > 0 ? result.rows[0] : null;
 }
  
 export { getAllProjects, getProjectsByOrganizationId, getUpcomingProjects, getProjectDetails }
