@@ -1,16 +1,31 @@
 <%- include('partials/header') %>
   <main>
-    <h1>
-      <%= title %>
-    </h1>
-    <% projects.forEach(project=> { %>
+    <div class="container">
+
+      <h1>
+        <%= title %>
+      </h1>
 
       <h2>
         <%= project.title %>
       </h2>
+
+
       <p><strong>Description: </strong>
         <%= project.description %>
       </p>
+
+      <h3>Categories</h3>
+      <ul class="categories-list">
+        <% categories.forEach(category=> { %>
+          <li class="project-card">
+            <a href="/category/<%= category.category_id %>">
+              <%= category.name %>
+            </a>
+          </li>
+          <% }); %>
+      </ul>
+
       <p><strong>Date:</strong>
         <%= project.date_short %>
       </p>
@@ -22,8 +37,7 @@
           <%= project.organization_name %>
         </a>
       </p>
-      <% }); %>
 
-
+    </div>
   </main>
   <%- include('partials/footer') %>

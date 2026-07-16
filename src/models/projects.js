@@ -1,44 +1,43 @@
- 
-import db from './db.js'
- 
+import db from "./db.js";
+
 const getAllProjects = async () => {
-    const query = `
-        SELECT
-            project_id,
-            title,
-            p.description,
-            location,
-            TO_CHAR(project_date, 'Month DD, YYYY') AS date_long,
-            TO_CHAR(project_date, 'MM-DD-YYYY') AS date_short,
-            p.organization_id,
-            name AS organization_name
-        FROM project p
-        JOIN organization o ON p.organization_id = o.organization_id
-        ORDER BY project_date ;
-    `;
- 
-    const result = await db.query(query);
-    return result.rows;
-}
+  const query = `
+    SELECT
+      project_id,
+      title,
+      p.description,
+      location,
+      TO_CHAR(project_date, 'Month DD, YYYY') AS date_long,
+      TO_CHAR(project_date, 'MM-DD-YYYY') AS date_short,
+      p.organization_id,
+      name AS organization_name
+    FROM project p
+    JOIN organization o ON p.organization_id = o.organization_id
+    ORDER BY project_date ;
+  `;
+
+  const result = await db.query(query);
+  return result.rows;
+};
 
 const getProjectsByOrganizationId = async (organizationId) => {
-      const query = `
-        SELECT
-          project_id,
-          organization_id,
-          title,
-          description,
-          location,
-          project_date AS date
-        FROM project
-        WHERE organization_id = $1
-        ORDER BY date;
-      `;
-      
-      const queryParams = [organizationId];
-      const result = await db.query(query, queryParams);
+  const query = `
+    SELECT
+      project_id,
+      organization_id,
+      title,
+      description,
+      location,
+      TO_CHAR(project_date, 'Month DD, YYYY') AS date_long,
+      TO_CHAR(project_date, 'MM-DD-YYYY') AS date_short
+    FROM project
+    WHERE organization_id = $1
+    ORDER BY project_date;
+  `;
+  const queryParams = [organizationId];
+  const result = await db.query(query, queryParams);
 
-      return result.rows;
+  return result.rows;
 };
 
 const getUpcomingProjects = async (number_of_projects) => {
@@ -63,7 +62,7 @@ const getUpcomingProjects = async (number_of_projects) => {
   const result = await db.query(query, queryParams);
 
   return result.rows;
-}
+};
 
 const getProjectDetails = async (id) => {
   const query = `
@@ -84,8 +83,13 @@ const getProjectDetails = async (id) => {
   const queryParams = [id];
   const result = await db.query(query, queryParams);
 
-  return result.rows;
-}
- 
-export { getAllProjects, getProjectsByOrganizationId, getUpcomingProjects, getProjectDetails }
- 
+  // Return the first row of the result set, or null if no rows are found
+  return result.rows.length > 0 ? result.rows[0] : null;
+};
+
+export {
+  getAllProjects,
+  getProjectsByOrganizationId,
+  getUpcomingProjects,
+  getProjectDetails,
+};
