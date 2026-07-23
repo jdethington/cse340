@@ -13,6 +13,9 @@ import {
 import {
   showProjectsPage,
   showProjectDetailsPage,
+  showNewProjectForm,
+  processNewProjectForm,
+  projectValidation,
 } from "./controllers/projects.js";
 import {
   showCategoriesPage,
@@ -27,7 +30,10 @@ router.get("/organizations", showOrganizationsPage);
 router.get("/organization/:id", showOrganizationDetailsPage);
 router.get("/projects", showProjectsPage);
 router.get("/project/:id", showProjectDetailsPage);
-router.get("/categories", showCategoriesPage);
+// Route for new project page
+router.get("/new-project", showNewProjectForm);
+// Route to handle new project form submission
+router.post("/new-project", projectValidation, processNewProjectForm); 
 router.get("/category/:id", showCategoryPage);
 router.get("/new-organization", showNewOrganizationForm);
 // Route to display the edit organization form
