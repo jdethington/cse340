@@ -66,11 +66,11 @@ const processNewOrganizationForm = async (req, res) => {
   if (!results.isEmpty()) {
     // Validation failed - loop through errors
     results.array().forEach((error) => {
-      req.flash('error', error.msg);
+      req.flash("error", error.msg);
     });
 
     // Redirect back to  the new organization form
-    return res.redirect('/new-organization');
+    return res.redirect("/new-organization");
   }
   const { name, description, contactEmail } = req.body;
   const logoFilename = "placeholder-logo.png"; // Use the placeholder logo for all new organizations
@@ -85,6 +85,14 @@ const processNewOrganizationForm = async (req, res) => {
   res.redirect(`/organization/${organizationId}`);
 };
 
+const showEditOrganizationForm = async (req, res) => {
+  const organizationId = req.params.id;
+  const organizationDetails = await getOrganizationDetails(organizationId);
+
+  const title = "Edit Organization";
+  res.render("edit-organization", { title, organizationDetails });
+};
+
 // Export any controller functions
 export {
   showOrganizationsPage,
@@ -92,4 +100,5 @@ export {
   showNewOrganizationForm,
   processNewOrganizationForm,
   organizationValidation,
+  showEditOrganizationForm,
 };
