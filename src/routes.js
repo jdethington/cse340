@@ -38,6 +38,7 @@ router.get("/project/:id", showProjectDetailsPage);
 router.get("/new-project", showNewProjectForm);
 // Route to handle new project form submission
 router.post("/new-project", projectValidation, processNewProjectForm);
+router.get("/categories", showCategoriesPage);
 router.get("/category/:id", showCategoryPage);
 router.get("/new-organization", showNewOrganizationForm);
 // Route to display the edit organization form
@@ -57,7 +58,7 @@ router.post(
 // Routes to handle the assign categories to project form
 router.get("/assign-categories/:projectId", showAssignCategoriesForm);
 router.post("/assign-categories/:projectId", processAssignCategoriesForm);
-// Routs to handle the update (edit) project form
+// Routes to handle the update (edit) project form
 router.get("/edit-project/:id", showEditProjectForm);
 router.post("/edit-project/:id", projectValidation, processEditProjectForm); //projectValidation,
 

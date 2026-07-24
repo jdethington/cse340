@@ -134,13 +134,13 @@ const processEditProjectForm = async (req, res) => {
     });
     // Redirect back to the edit project form
     // return res.render("projects");
-    return res.render("/edit-project/" + req.params.id);
+    return res.redirect("/edit-project/" + req.params.id);
   }
 
   const projectId = req.params.id;
   // check each of these=======================================================================
-  const { title, description, location, date, organization_id } = req.body;
-  console.log(title, description, location, date, organization_id);
+  const { title, description, location, date, organizationId } = req.body;
+  console.log(title, description, location, date, organizationId);
   // does this try block help?
   try {
     await updateProject(
@@ -149,7 +149,7 @@ const processEditProjectForm = async (req, res) => {
       description,
       location,
       date,
-      organization_id,
+      organizationId,
     );
     // set a success message
     req.flash("success", "Project updated successfully!");

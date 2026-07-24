@@ -1,6 +1,6 @@
 /* main.css - Professional styles for CSE 340 Service Network */
-/* Enhanced with better UX, forms, and polish */
-
+/* Updated for enhanced professionalism, clean typography, and modern UI */
+/* ALL css created using grok.com */
 :root {
   --primary-green: #1f6b24;
   --secondary-blue: #0f4c8a;
@@ -42,7 +42,6 @@ body {
   min-height: 100vh;
 }
 
-/* Navigation */
 nav {
   background-color: var(--primary-green);
   box-shadow: var(--shadow-md);
@@ -62,6 +61,10 @@ nav ul {
   gap: 0.5rem;
 }
 
+nav li {
+  margin: 0;
+}
+
 nav a {
   display: block;
   color: white;
@@ -75,44 +78,40 @@ nav a {
 
 nav a:hover {
   background-color: rgba(255, 255, 255, 0.15);
+  color: white;
   transform: translateY(-2px);
 }
 
-/* Flash Messages */
+/* Flash message styles */
 .alert {
-  padding: 16px 20px;
-  margin: 0 auto 1.5rem auto;
+  padding: 15px;
+  margin: 0 auto;
+  margin-bottom: 20px;
   border: 1px solid transparent;
-  border-radius: 8px;
+  border-radius: 4px;
   max-width: 1200px;
-  font-weight: 500;
 }
-
 .alert.success {
   color: #155724;
   background-color: #d4edda;
   border-color: #c3e6cb;
 }
-
 .alert.error {
   color: #721c24;
   background-color: #f8d7da;
   border-color: #f5c6cb;
 }
-
 .alert.warning {
   color: #856404;
   background-color: #fff3cd;
   border-color: #ffeeba;
 }
-
 .alert.info {
   color: #0c5460;
   background-color: #d1ecf1;
   border-color: #bee5eb;
 }
 
-/* Main Content */
 main {
   flex: 1;
   max-width: 1200px;
@@ -135,6 +134,7 @@ h2 {
   font-size: 1.85rem;
   margin: 2.5rem 0 1.25rem;
   font-weight: 600;
+  letter-spacing: -0.015em;
 }
 
 h3 {
@@ -144,83 +144,34 @@ h3 {
   font-weight: 600;
 }
 
-/* Forms */
-.form-group {
-  margin-bottom: 1.5rem;
-}
-
-.form-group label {
-  display: block;
-  margin-bottom: 8px;
-  font-weight: 600;
+p {
+  font-size: 1.1rem;
   color: #374151;
+  max-width: 720px;
+  margin-bottom: 1.25rem;
 }
 
-.form-group input,
-.form-group textarea,
-.form-group select {
+ul {
+  list-style-position: outside;
+  padding-left: 1.25rem;
+  margin: 1.5rem 0;
+}
+
+main ul li {
+  font-size: 1.1rem;
+  margin-bottom: 0.85rem;
+  padding-left: 0.35rem;
+}
+
+/* Logo */
+img.main-logo {
+  max-width: 420px;
   width: 100%;
-  padding: 12px 14px;
-  border: 1px solid #cbd5e1;
-  border-radius: 6px;
-  font-size: 1rem;
-  transition: all 0.3s ease;
-}
-
-.form-group input:focus,
-.form-group textarea:focus,
-.form-group select:focus {
-  border-color: var(--primary-green);
-  box-shadow: 0 0 0 3px rgba(31, 107, 36, 0.15);
-  outline: none;
-}
-
-.form-group textarea {
-  min-height: 130px;
-  resize: vertical;
-}
-
-.form-actions {
-  margin-top: 2rem;
-  display: flex;
-  gap: 1rem;
-  flex-wrap: wrap;
-}
-
-.form-actions button {
-  width: auto;
-  min-width: 160px;
-  padding: 14px 28px;
-  background-color: var(--primary-green);
-  color: white;
-  border: none;
-  border-radius: 6px;
-  font-size: 1.05rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.form-actions button:hover {
-  background-color: #145c1f;
-  transform: translateY(-1px);
-}
-
-.btn-cancel {
-  display: inline-block;
-  padding: 14px 28px;
-  color: var(--neutral-gray);
-  text-decoration: none;
-  border: 2px solid #e2e8f0;
-  border-radius: 6px;
-  font-weight: 600;
-  transition: all 0.2s ease;
-}
-
-.btn-cancel:hover {
-  background-color: #f8fafc;
-  border-color: #cbd5e1;
-  color: #334155;
+  height: auto;
+  margin: 2.75rem auto 1.5rem;
+  border-radius: 16px;
+  box-shadow: var(--shadow-lg);
+  display: block;
 }
 
 /* Cards & Lists */
@@ -254,11 +205,94 @@ h3 {
 }
 
 .project-card:hover {
-  box-shadow: var(--shadow-lg);
-  transform: translateY(-6px);
-  border-color: #a1a1aa;
+  box-shadow: var(--shadow-md);
+  transform: translateY(-4px);
+  border-color: #cbd5e1;
 }
 
+.project-card a {
+  color: var(--primary-green);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+  transition: color 0.2s ease;
+}
+
+.project-card a:hover {
+  color: #166534;
+  text-decoration: underline;
+}
+
+.project-card p {
+  margin-bottom: 0.75rem;
+  color: #475569;
+  font-size: 1.02rem;
+}
+
+.project-card strong {
+  color: var(--dark-text);
+}
+
+/* Form project */
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: #555;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.form-group textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+button {
+  width: 100%;
+  padding: 14px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  main {
+    padding: 15px;
+  }
+}
 /* Organizations List */
 main ul.organizations-list li {
   display: flex;
@@ -268,13 +302,25 @@ main ul.organizations-list li {
   border-radius: 12px;
   border: 1px solid var(--border-color);
   box-shadow: var(--shadow-sm);
-  gap: 1.25rem;
   transition: all 0.25s ease;
+  gap: 1.25rem;
 }
 
 main ul.organizations-list li:hover {
   box-shadow: var(--shadow-md);
-  transform: translateY(-4px);
+  transform: translateY(-3px);
+  border-color: var(--accent-light);
+}
+
+main ul.organizations-list li img {
+  width: 64px;
+  height: 64px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  object-fit: contain;
+  background-color: #f8fafc;
+  padding: 6px;
+  border: 1px solid var(--border-color);
 }
 
 /* Footer */
@@ -285,22 +331,41 @@ footer {
   padding: 2.75rem 1.5rem 2rem;
   margin-top: auto;
   font-size: 0.95rem;
+  font-weight: 500;
   border-top: 1px solid #334155;
+}
+
+footer p {
+  color: #cbd5e1;
+  max-width: 600px;
+  margin: 0 auto;
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
-  main {
-    padding: 2.25rem 1rem 3rem;
-  }
-
   nav ul {
     flex-direction: column;
     padding: 0.5rem 0;
+    gap: 0.25rem;
+  }
+
+  nav a {
+    padding: 1rem 1.5rem;
+    text-align: center;
+    border-radius: 8px;
   }
 
   h1 {
     font-size: 2.35rem;
+  }
+
+  main {
+    padding: 2.25rem 1rem 3rem;
+  }
+
+  img.main-logo {
+    max-width: 100%;
+    margin: 2rem auto 1.25rem;
   }
 
   .projects-grid,
@@ -309,68 +374,22 @@ footer {
   }
 }
 
-/* Utility Classes */
+/* Utility classes */
 .text-center {
   text-align: center;
 }
+
 .container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 1.5rem;
 }
-/* Project Detail Action Buttons */
-.project-actions {
-  display: flex;
-  gap: 1rem;
-  margin-bottom: 2rem;
-  flex-wrap: wrap;
+
+/* Additional polish */
+a {
+  transition: color 0.2s ease;
 }
 
-.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 12px 24px;
-  font-size: 1.05rem;
+strong {
   font-weight: 600;
-  text-decoration: none;
-  border-radius: 8px;
-  transition: all 0.3s ease;
-  min-width: 160px;
-}
-
-.btn-primary {
-  background-color: var(--primary-green);
-  color: white;
-  border: 2px solid var(--primary-green);
-}
-
-.btn-primary:hover {
-  background-color: #145c1f;
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
-}
-
-.btn-secondary {
-  background-color: white;
-  color: var(--secondary-blue);
-  border: 2px solid var(--secondary-blue);
-}
-
-.btn-secondary:hover {
-  background-color: #f0f9ff;
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-sm);
-}
-
-/* Make sure buttons stack nicely on mobile */
-@media (max-width: 600px) {
-  .project-actions {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .btn {
-    min-width: auto;
-  }
 }
