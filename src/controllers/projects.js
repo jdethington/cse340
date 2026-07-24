@@ -132,7 +132,6 @@ const processEditProjectForm = async (req, res) => {
       req.flash("error", error.msg);
     });
     // Redirect back to the edit project form
-    // return res.render("projects");
     return res.redirect("/edit-project/" + req.params.id);
   }
 
