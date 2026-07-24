@@ -59,7 +59,7 @@ router.get("/assign-categories/:projectId", showAssignCategoriesForm);
 router.post("/assign-categories/:projectId", processAssignCategoriesForm);
 // Routs to handle the update (edit) project form
 router.get("/edit-project/:id", showEditProjectForm);
-router.post("/edit-project/:id", projectValidation, processEditProjectForm);
+router.post("/edit-project/:id", processEditProjectForm); //projectValidation,
 
 // error-handling routes
 router.get("/test-error", testErrorPage);
