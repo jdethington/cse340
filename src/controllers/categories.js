@@ -1,4 +1,5 @@
 // Import any needed model functions
+import { body, validationResult } from "express-validator";
 import {
   getAllCategories,
   getCategory,
@@ -6,8 +7,26 @@ import {
   getCategoriesByServiceProjectId,
   getAllServiceProjectsForCategory,
   updateCategoryAssignments,
+  createCategory,
 } from "../models/categories.js";
 import { getProjectDetails } from "../models/projects.js";
+
+// Define validation and sanitization rules for category form
+// Define validation rules for category form
+const categoryValidation = [
+  body("name")
+    .trim()
+    .notEmpty()
+    .withMessage("Category name is required")
+    .isLength({ min: 3, max: 100 })
+    .withMessage("Category name must be between 3 and 100 characters"),
+  body("description")
+    .trim()
+    .notEmpty()
+    .withMessage("Category description is required")
+    .isLength({ max: 1000 })
+    .withMessage("Category description cannot exceed 1000 characters"),
+];
 
 // Define any controller functions
 const showCategoriesPage = async (req, res) => {
@@ -65,6 +84,38 @@ const processAssignCategoriesForm = async (req, res) => {
   req.flash("success", "Category updated successfully.");
   res.redirect(`/project/${projectId}`);
 };
+// Create new category
+// GET: new-category
+const showNewCategoryForm = async (req, res) => {
+  const title = "Add New Category";
+  res.render("new-category", { title });
+};
+// POST: new-category
+const processNewCategoryForm = async (req, res) => {
+  // Check for validity errors
+  const results = validationResult(req);
+  if (!results.isEmpty()) {
+    // Validation failed - loop through errors
+    results.array().forEach((error) => {
+      req.flash("error", error.msg);
+    });
+    // redirect back to the category form
+    return res.redirect("/new-category/");
+  }
+  // Extract form data from the req.body
+  const { name, description } = req.body;
+  try {
+    // Create the new category in the database
+    const newCategoryId = await createCategory(name, description);
+    console.log("New Category ID: ", newCategoryId);
+    req.flash("success", "New Category Created Successfully!");
+    res.redirect(`/category/${newCategoryId}`);
+  } catch (error) {
+    console.error("Error creating new category: ", error);
+    req.flash("error", "There was an error creating the new Category.");
+    res.redirect("new-category");
+  }
+};
 
 // Export any controller functions
 export {
@@ -72,4 +123,7 @@ export {
   showCategoryPage,
   showAssignCategoriesForm,
   processAssignCategoriesForm,
+  showNewCategoryForm,
+  processNewCategoryForm,
+  categoryValidation,
 };

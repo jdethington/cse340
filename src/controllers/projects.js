@@ -1,5 +1,4 @@
 // Import any needed model functions
-// import { render } from "ejs";
 import {
   getUpcomingProjects,
   getProjectDetails,
@@ -14,8 +13,8 @@ import { getAllOrganizations } from "../models/organizations.js";
 import { body, validationResult } from "express-validator";
 
 const NUMBER_OF_UPCOMING_PROJECTS = 5;
-// Define validation and sanitization rules for organization form
-// Define validation rules for organization form
+// Define validation and sanitization rules for project form
+// Define validation rules for project form
 const projectValidation = [
   body("title")
     .trim()
