@@ -72,6 +72,7 @@ const getProjectDetails = async (id) => {
       p.description,
       TO_CHAR(p.project_date, 'Month DD, YYYY') AS date_long,
       TO_CHAR(p.project_date, 'MM-DD-YYYY') AS date_short,
+      p.project_date AS date,
       p.location,
       p.organization_id,
       o.name AS organization_name
@@ -114,10 +115,52 @@ const createProject = async (
   return results.rows[0].project_id;
 };
 
+const updateProject = async (
+  projectId,
+  title,
+  description,
+  location,
+  projectDate,
+  organizationId,
+) => {
+  const query = `
+    UPDATE project
+    SET title = $1,
+      description = $2,
+      location = $3,
+      project_date = $4,
+      organization_id = $5
+    WHERE project_id = $6
+    RETURNING project_id;
+  `;
+
+  const queryParams = [
+    title,
+    description,
+    location,
+    projectDate,
+    organizationId,
+    projectId,
+  ];
+
+  const results = await db.query(query, queryParams);
+
+  if (results.rows.length === 0) {
+    throw new Error("Project not found or Update failed");
+  }
+
+  if (process.env.ENABLE_SQL_LOGGING === "true") {
+    console.log("Updated project with ID: ", projectId);
+  }
+
+  return results.rows[0].organization_id;
+};
+
 export {
   getAllProjects,
   getProjectsByOrganizationId,
   getUpcomingProjects,
   getProjectDetails,
   createProject,
+  updateProject,
 };

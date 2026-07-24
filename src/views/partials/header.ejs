@@ -20,15 +20,16 @@
         </ul>
     </nav>
 
+    <!-- Display FLASH MESSAGES HERE -->
     <% const messages=flash(); %>
-        <% Object.keys(messages).forEach(type=> { %>
-            <% if (messages[type].length> 0) { %>
-
-                <% messages[type].forEach(msg=> { %>
-                    <p class="alert <% msg.type %>">
-                        <%= msg %>
-                    </p>
-                    <% }); %>
-
-                        <% } %>
-                            <% }); %>
+        <div class="alert">
+            <% Object.keys(messages).forEach(type=> { %>
+                <% if (messages[type].length> 0) { %>
+                    <% messages[type].forEach(msg=> { %>
+                        <div class="alert <%= type %>">
+                            <%= msg %>
+                        </div>
+                        <% }); %>
+                            <% } %>
+                                <% }); %>
+        </div>
