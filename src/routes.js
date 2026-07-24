@@ -20,6 +20,8 @@ import {
 import {
   showCategoriesPage,
   showCategoryPage,
+  showAssignCategoriesForm,
+  processAssignCategoriesForm,
 } from "./controllers/categories.js";
 import { testErrorPage } from "./controllers/errors.js";
 
@@ -50,6 +52,9 @@ router.post(
   organizationValidation,
   processEditOrganizationForm,
 );
+// Routes to handle the assign categories to project form
+router.get("/assign-categories/:projectId", showAssignCategoriesForm);
+router.post("/assign-categories/:projectId", processAssignCategoriesForm);
 
 // error-handling routes
 router.get("/test-error", testErrorPage);

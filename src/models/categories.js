@@ -29,7 +29,8 @@ const getCategory = async (categoryId) => {
 };
 
 // Retrieve all categories for a given service project.
-const getAllCategoriesForServiceProject = async (projectId) => {
+// Changed the name from "getAllCategoriesForServiceProject" ======================
+const getCategoriesByServiceProjectId = async (projectId) => {
   const query = `
     SELECT
       c.category_id,
@@ -68,10 +69,34 @@ const getAllServiceProjectsForCategory = async (categoryId) => {
   return result.rows;
   // return result.rows.length > 0 ? result.rows[0] : null;
 };
+// verify order of inputs
+const assignCategoryToProject = async (projectId, categoryId) => {
+  const query = `
+    INSERT INTO project_category (project_id, category_id)
+    VALUES ($1, $2)
+  `;
+  await db.query(query, [projectId, categoryId]);
+};
+
+const updateCategoryAssignments = async (projectId, categoryIds) => {
+  // First, remove existing category assignments for the project
+  const deleteQuery = `
+    DELETE FROM project_category
+    WHERE project_id = $1
+  `;
+  await db.query(deleteQuery, [projectId]);
+
+  // Next, add the new category assignments
+  for (const categoryId of categoryIds) {
+    await assignCategoryToProject(projectId, categoryId);
+  }
+};
 
 export {
   getAllCategories,
   getCategory,
-  getAllCategoriesForServiceProject,
+  // getAllCategoriesForServiceProject,
   getAllServiceProjectsForCategory,
+  updateCategoryAssignments,
+  getCategoriesByServiceProjectId,
 };
