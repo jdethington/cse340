@@ -102,14 +102,28 @@ const createCategory = async (name, description) => {
   const result = await db.query(query, queryParams);
 
   if (result.rows.length === 0) {
-    throw new Error('Failed to create new Category');
+    throw new Error("Failed to create new Category");
   }
-  if (process.env.ENABLE_SQL_LOGGING === 'true') {
-    console.log('Created new project with ID: ', result.rows[0].category_id);
+  if (process.env.ENABLE_SQL_LOGGING === "true") {
+    console.log("Created new project with ID: ", result.rows[0].category_id);
   }
   return result.rows[0].category_id;
-}
-
+};
+const updateCategory = async (name, description, categoryId) => {
+  const query = `
+    UPDATE category
+    SET name = $1,
+      description = $2
+    WHERE category_id = $3
+    RETURNING category_id;
+  `;
+  const queryParams = [name, description, categoryId];
+  const results = await db.query(query, queryParams);
+  if (results.rows.length === 0) {
+    throw new Error("Project not found or Update failed");
+  }
+  return results.rows[0].category_id;
+};
 
 export {
   getAllCategories,
@@ -119,4 +133,5 @@ export {
   updateCategoryAssignments,
   getCategoriesByServiceProjectId,
   createCategory,
+  updateCategory,
 };

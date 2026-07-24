@@ -8,6 +8,7 @@ import {
   getAllServiceProjectsForCategory,
   updateCategoryAssignments,
   createCategory,
+  updateCategory,
 } from "../models/categories.js";
 import { getProjectDetails } from "../models/projects.js";
 
@@ -53,13 +54,7 @@ const showAssignCategoriesForm = async (req, res) => {
   const assignedCategories = await getCategoriesByServiceProjectId(projectId);
 
   const title = "Assign Categories to Project";
-  console.log(
-    `${title}: `,
-    // "projectDetails ",
-    // projectDetails,
-    // categories,
-    assignedCategories,
-  );
+  console.log(`${title}: `, assignedCategories);
   res.render("assign-categories", {
     title,
     projectId,
@@ -117,6 +112,38 @@ const processNewCategoryForm = async (req, res) => {
   }
 };
 
+// Edit Category
+// GET: edit-category
+const showEditCategoryForm = async (req, res) => {
+  const categoryId = req.params.id;
+  const category = await getCategory(categoryId);
+
+  const title = "Edit Category";
+  // console.log();
+  res.render("edit-category", { title, category });
+};
+// POST: edit-category
+const processEditCategoryForm = async (req, res) => {
+  // Check for validation
+  const results = validationResult(req);
+  if (!results.isEmpty()) {
+    // Validation failed - loop through errors
+    results.array().forEach((error) => {
+      req.flash("error", error.msg);
+    });
+    // Redirect back to the edit category form
+    return res.redirect("/edit-category/" + req.params.id);
+  }
+
+  const categoryId = req.params.id;
+  const { name, description } = req.body;
+  console.log(name, description);
+  await updateCategory(name, description, categoryId);
+  // set success message
+  req.flash("success", "Category updated successfully!");
+  res.redirect(`/category/${categoryId}`);
+};
+
 // Export any controller functions
 export {
   showCategoriesPage,
@@ -126,4 +153,6 @@ export {
   showNewCategoryForm,
   processNewCategoryForm,
   categoryValidation,
+  showEditCategoryForm,
+  processEditCategoryForm,
 };
