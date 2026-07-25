@@ -2,34 +2,36 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>
-        <%= title %>
-    </title>
-    <link rel="stylesheet" href="/css/main.css">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>
+		<%= title %>
+	</title>
+	<link rel="stylesheet" href="/css/main.css">
 </head>
 
 <body>
-    <nav>
-        <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="/organizations">Organizations</a></li>
-            <li><a href="/projects">Projects</a></li>
-            <li><a href="/categories">Categories</a></li>
-        </ul>
-    </nav>
+	<nav>
+		<ul>
+			<li><a href="/">Home</a></li>
+			<li><a href="/organizations">Organizations</a></li>
+			<li><a href="/projects">Projects</a></li>
+			<li><a href="/categories">Categories</a></li>
+		</ul>
+	</nav>
 
-    <!-- Display FLASH MESSAGES HERE -->
-    <% const messages=flash(); %>
-        <div class="alert">
-            <% Object.keys(messages).forEach(type=> { %>
-                <% if (messages[type].length> 0) { %>
-                    <% messages[type].forEach(msg=> { %>
-                        <div class="alert <%= type %>">
-                            <%= msg %>
-                        </div>
-                        <% }); %>
-                            <% } %>
-                                <% }); %>
-        </div>
+	<!-- Display FLASH MESSAGES HERE -->
+	<% const messages=flash(); %>
+		<% if (messages> 0) { %>
+			<div class="alert">
+				<% Object.keys(messages).forEach(type=> { %>
+					<% if (messages[type].length> 0) { %>
+						<% messages[type].forEach(msg=> { %>
+							<div class="alert <%= type %>">
+								<%= msg %>
+							</div>
+							<% }); %>
+								<% } %>
+									<% }); %>
+			</div>
+			<% }; %>

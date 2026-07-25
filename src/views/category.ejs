@@ -1,34 +1,37 @@
 <%- include('partials/header') %>
-    <main>
-        <div class="container">
+	<main>
+		<div class="container">
 
-            <h1>
-                <%= title %>
-            </h1>
-            <!-- Action Buttons -->
-            <div class="actions"><a href="/edit-category/<%= category.category_id %>" class="btn btn-primary">Edit
-                    category</a></div>
+			<h1>
+				<%= title %>
+			</h1>
+			<!-- Action Buttons -->
+			<div class="actions"><a href="/edit-category/<%= category.category_id %>" class="btn btn-primary">Edit
+					category</a></div>
+			<div>
+				<h2>
+					<%= category.name %>
+				</h2>
+				<p>
+					<%= category.description %>
+				</p>
+			</div>
 
-            <h2>
-                <%= category.name %>
-            </h2>
-            <p>
-                <%= category.description %>
-            </p>
+			<ul class="categories-list">
+				<% projects.forEach(project=> { %>
+					<a href="/project/<%= project.project_id %>">
+						<li class="project-card">
+							<h3>
+								<%= project.title %>
+							</h3>
+							<p>
+								<%= project.date_long %>
+							</p>
+						</li>
+					</a>
+					<% }); %>
+			</ul>
 
-            <ul class="categories-list">
-                <% projects.forEach(project=> { %>
-                    <li class="project-card">
-                        <p><a href="/project/<%= project.project_id %>">
-                                <%= project.title %>
-                            </a>
-                            <br> ( <%= project.date_short %> )
-                        </p>
-                    </li>
-                    <% }); %>
-
-
-            </ul>
-        </div>
-    </main>
-    <%- include('partials/footer') %>
+		</div>
+	</main>
+	<%- include('partials/footer') %>

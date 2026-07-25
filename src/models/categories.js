@@ -6,7 +6,8 @@ const getAllCategories = async () => {
       category_id AS id,
       name,
       description
-    FROM category;
+    FROM category
+    ORDER BY name ASC;
   `;
   const result = await db.query(query);
   return result.rows;
@@ -38,7 +39,8 @@ const getCategoriesByServiceProjectId = async (projectId) => {
       description
     FROM category c
     JOIN project_category pc ON c.category_id = pc.category_id
-    WHERE pc.project_id = $1;
+    WHERE pc.project_id = $1
+    ORDER BY name ASC;
   `;
   const queryParams = [projectId];
   const result = await db.query(query, queryParams);

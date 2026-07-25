@@ -1,36 +1,41 @@
 <%- include('partials/header') %>
     <main>
-        <h1>
-            <%= title %>
-        </h1>
+        <div class="container">
 
-        <form action="/edit-organization/<%= organizationDetails.organization_id %>" method="POST">
-            <div class="form-group">
-                <label for="name">Organization Name</label>
-                <input type="text" id="name" name="name" value="<%= organizationDetails.name %>" maxlength="150"
-                    required />
-            </div>
+            <h1>
+                <%= title %>
+            </h1>
 
-            <div class="form-group">
-                <label for="description">Description</label>
-                <textarea id="description" name="description" required
-                    maxlength="500"><%= organizationDetails.description %></textarea>
-            </div>
+            <form action="/edit-organization/<%= organizationDetails.organization_id %>" method="POST">
+                <div class="form-group">
+                    <label for="name">Organization Name</label>
+                    <input type="text" id="name" name="name" value="<%= organizationDetails.name %>" maxlength="150"
+                        required />
+                </div>
 
-            <div class="form-group">
-                <label for="contactEmail">Contact Email</label>
-                <input type="email" id="contactEmail" name="contactEmail"
-                    value="<%= organizationDetails.contact_email %>" required />
-            </div>
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <textarea id="description" name="description" required
+                        maxlength="500"><%= organizationDetails.description %></textarea>
+                </div>
 
-            <div class="form-group">
-                <label for="logoFilename">Logo Filename</label>
-                <input type="text" id="logoFilename" name="logoFilename" maxlength="255" required
-                    value="<%= organizationDetails.logo_filename %>" />
-            </div>
+                <div class="form-group">
+                    <label for="contactEmail">Contact Email</label>
+                    <input type="email" id="contactEmail" name="contactEmail"
+                        value="<%= organizationDetails.contact_email %>" required />
+                </div>
 
-            <button type="submit">Update Organization</button>
-        </form>
+                <div class="form-group">
+                    <label for="logoFilename">Logo Filename</label>
+                    <input type="text" id="logoFilename" name="logoFilename" maxlength="255" required
+                        value="<%= organizationDetails.logo_filename %>" />
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Update Organization</button>
+                    <a href="/organization/<%= organizationDetails.organization_id %>" class="btn btn-cancel">Cancel</a>
+                </div>
 
+            </form>
+        </div>
     </main>
     <%- include('partials/footer') %>

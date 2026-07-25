@@ -1,27 +1,35 @@
 <%- include('partials/header') %>
-    <main>
-        <div class="container">
+  <main>
+    <div class="container">
 
-            <h1>
-                <%= title %>
-            </h1>
-            <!-- Action Buttons -->
-            <div class="project-actions"><a href="/new-organization" class="btn btn-primary">Add a new organization</a>
-            </div>
+      <h1>
+        <%= title %>
+      </h1>
+      <!-- Action Buttons -->
+      <div class="project-actions"><a href="/new-organization" class="btn btn-primary">Add a new organization</a>
+      </div>
 
-            <h2>Here are a few of our partner organizations:</h2>
-            <ul class="organizations-list">
+      <h2>Here are a few of our partner organizations</h2>
 
-                <% organizations.forEach(organization=> { %>
-                    <li>
-                        <img src="/images/<%= organization.logo_filename %>" alt="<%= organization.name %> logo">
-                        <a href="/organization/<%= organization.organization_id %>">
-                            <strong>
-                                <%= organization.name %>
-                            </strong></a>: <%= organization.contact_email %>
-                    </li>
-                    <% }); %>
-            </ul>
-        </div>
-    </main>
-    <%- include('partials/footer') %>
+      <ul class="organizations-list">
+        <% organizations.forEach(organization=> { %>
+          <li class="organization-card">
+            <a href="/organization/<%= organization.organization_id %>">
+              <img src="/images/<%= organization.logo_filename %>" alt="<%= organization.name %> logo">
+              <div>
+                <span>
+                  <%= organization.name %>
+                </span>
+                <span class="email">
+                  <%= organization.contact_email %>
+                </span>
+              </div>
+              <!-- <div>
+							</div> -->
+            </a>
+          </li>
+          <% }); %>
+      </ul>
+    </div>
+  </main>
+  <%- include('partials/footer') %>

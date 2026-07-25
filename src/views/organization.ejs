@@ -1,28 +1,35 @@
 <%- include('partials/header') %>
-    <main>
-        <div class="container">
+	<main>
+		<div class="container">
 
-            <h1>
-                <%= title %>
-            </h1>
-            <p><a href="/edit-organization/<%= organizationDetails.organization_id %>">Edit Organization</a></p>
-            <img src="/images/<%= organizationDetails.logo_filename %>" alt="<%= organizationDetails.name %> logo">
-            <h2>
-                <%= organizationDetails.name %>
-            </h2>
+			<h1>
+				<%= title %>
+			</h1>
+			<!-- Action Buttons -->
+			<div class="project-actions"><a href="/edit-organization/<%= organizationDetails.organization_id %>"
+					class="btn btn-primary">Edit
+					Organization</a></div>
 
-            <p>Description: <%= organizationDetails.description %>
-            </p>
+			<img src="/images/<%= organizationDetails.logo_filename %>" alt="<%= organizationDetails.name %> logo">
+			<div>
+				<h2>
+					<%= organizationDetails.name %>
+				</h2>
+				<p>
+					<%= organizationDetails.description %>
+				</p>
+			</div>
 
-            <h3>Service Projects</h3>
-            <ul class="organizations-list">
-                <% projects.forEach(project=> { %>
-                    <li class="project-card"><a href="/project/<%= project.project_id %>">
-                            <%= project.title %>
-                        </a>
-                    </li>
-                    <% }); %>
-            </ul>
-        </div>
-    </main>
-    <%- include('partials/footer') %>
+			<h3>Service Projects</h3>
+			<ul class="organizations-list">
+				<% projects.forEach(project=> { %>
+					<li class="project-card">
+						<a href="/project/<%= project.project_id %>">
+							<%= project.title %>
+						</a>
+					</li>
+					<% }); %>
+			</ul>
+		</div>
+	</main>
+	<%- include('partials/footer') %>

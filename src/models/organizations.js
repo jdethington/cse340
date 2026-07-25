@@ -7,7 +7,8 @@ const getAllOrganizations = async () => {
       description,
       contact_email,
       logo_filename
-    FROM organization;
+    FROM organization
+    ORDER BY name ASC;
   `;
 
   const result = await db.query(query);

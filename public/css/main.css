@@ -52,7 +52,6 @@ nav {
   top: 0;
   z-index: 100;
 }
-
 nav ul {
   display: flex;
   list-style: none;
@@ -63,7 +62,6 @@ nav ul {
   flex-wrap: wrap;
   gap: 0.5rem;
 }
-
 nav a {
   display: block;
   color: white;
@@ -74,7 +72,6 @@ nav a {
   font-size: 1.05rem;
   border-radius: 6px;
 }
-
 nav a:hover {
   background-color: rgba(255, 255, 255, 0.15);
   transform: translateY(-2px);
@@ -89,7 +86,6 @@ nav a:hover {
   max-width: 1200px;
   font-weight: 500;
 }
-
 .alert.success {
   background-color: #d4edda;
   color: #155724;
@@ -185,6 +181,27 @@ h3 {
   background-color: #f0f9ff;
   transform: translateY(-2px);
 }
+.btn-cancel {
+  background-color: white;
+  color: var(--secondary-blue);
+  border-color: var(--secondary-blue);
+}
+
+.btn-cancel:hover {
+  background-color: #f0f9ff;
+  transform: translateY(-2px);
+}
+.btn-small {
+  background-color: var(--card-bg);
+  color: var(--dark-text);
+  border-color: var(--border-color);
+  padding: 6px 8px;
+
+  &:hover {
+    background-color: var(--light-bg);
+    transform: translateY(-2px);
+  }
+}
 
 /* Forms */
 .form-group {
@@ -213,7 +230,8 @@ h3 {
 .form-group textarea:focus,
 .form-group select:focus {
   border-color: var(--primary-green);
-  box-shadow: 0 0 0 3px rgba(31, 107, 36, 0.15);
+  /* box-shadow: 0 0 0 3px rgba(31, 107, 36, 0.15); */
+  box-shadow: var(--shadow-sm);
   outline: none;
 }
 
@@ -227,6 +245,17 @@ h3 {
   display: flex;
   gap: 1rem;
   flex-wrap: wrap;
+}
+
+.form-checkbox {
+  display: grid;
+  grid-template-columns: 1rem auto;
+  gap: 0.5rem;
+  /* padding: 0.5rem;
+  margin: 0.5rem; */
+  label {
+    margin: 0.5rem;
+  }
 }
 
 /* Project Actions */
@@ -246,6 +275,10 @@ h3 {
   margin: 2rem 0;
   display: grid;
   gap: 1.5rem;
+  a {
+    text-decoration: none;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
 }
 
 .categories-list {
@@ -255,25 +288,40 @@ h3 {
   grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
 }
 
-.project-card {
+.project-card,
+.category-card,
+.organization-card {
   background-color: var(--card-bg);
   border: 1px solid var(--border-color);
   border-radius: 12px;
   padding: 1.75rem;
+  text-align: center;
+  height: 100%;
+  color: var(--dark-text);
   box-shadow: var(--shadow-sm);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  h3 {
+    margin: 0;
+  }
+  & a {
+    color: var(--dark-text);
+  }
+  & .name:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-4px);
+  }
 }
 
-.project-card:hover {
+.project-card:hover,
+.category-card:hover,
+.organization-card:hover {
   box-shadow: var(--shadow-lg);
   transform: translateY(-6px);
   border-color: #a1a1aa;
 }
 
 /* Organizations List */
-main ul.organizations-list li {
-  display: flex;
-  align-items: flex-start;
+ul.organizations-list li {
   background-color: var(--card-bg);
   padding: 1.5rem;
   border-radius: 12px;
@@ -281,9 +329,26 @@ main ul.organizations-list li {
   box-shadow: var(--shadow-sm);
   gap: 1.25rem;
   transition: all 0.25s ease;
+  a {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    text-decoration: none;
+    color: var(--dark-text);
+    font-weight: bold;
+    font-size: 2rem;
+    div {
+      display: grid;
+      gap: 1rem;
+      & .email {
+        font-size: 0.8rem;
+        font-weight: normal;
+      }
+    }
+  }
 }
 
-main ul.organizations-list li:hover {
+ul.organizations-list li:hover {
   box-shadow: var(--shadow-md);
   transform: translateY(-4px);
 }
