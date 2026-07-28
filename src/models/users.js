@@ -55,7 +55,7 @@ const authenticateUser = async (email, password) => {
     // user.password_hash.remove();
     console.log(user);
 
-    return result;
+    return user;
   }
 };
 

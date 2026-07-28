@@ -9,7 +9,7 @@ import flash from "./src/middleware/flash.js";
 // Define the application environment
 const NODE_ENV = process.env.NODE_ENV?.toLowerCase() || "production";
 const ENABLE_SQL_LOGGING =
-    process.env.ENABLE_SQL_LOGGING?.toLowerCase() === "true";
+  process.env.ENABLE_SQL_LOGGING?.toLowerCase() === "true";
 
 const SESSION_SECRET = process.env.SESSION_SECRET;
 
@@ -26,12 +26,14 @@ const app = express();
  */
 
 // Set up session management
-app.use(session({
+app.use(
+  session({
     secret: SESSION_SECRET,
     resave: false,
     saveUninitialized: true,
-    cookie: { maxAge: 60 * 60 * 1000 } // Session expires after 1 hour of inactivity
-}));
+    cookie: { maxAge: 60 * 60 * 1000 }, // Session expires after 1 hour of inactivity
+  }),
+);
 
 // Use flash message middleware
 app.use(flash);
@@ -59,6 +61,10 @@ app.use((req, res, next) => {
 
 // Middleware to make NODE_ENV available to all templates
 app.use((req, res, next) => {
+  res.locals.isLoggedIn = false;
+  if (req.session && req.session.user) {
+    res.locals.isLoggedIn = true;
+  }
   res.locals.NODE_ENV = NODE_ENV;
   next();
 });
