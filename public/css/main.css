@@ -206,6 +206,7 @@ h3 {
 /* Forms */
 .form-group {
   margin-bottom: 1.5rem;
+  max-width: 25rem;
 }
 
 .form-group label {
