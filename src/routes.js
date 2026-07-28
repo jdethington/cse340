@@ -34,6 +34,9 @@ import { testErrorPage } from "./controllers/errors.js";
 import {
   showUserRegistrationForm,
   processUserRegistrationForm,
+  showLoginForm,
+  processLoginForm,
+  processLogout,
 } from "./controllers/users.js";
 
 const router = express.Router();
@@ -79,6 +82,10 @@ router.post("/edit-category/:id", categoryValidation, processEditCategoryForm);
 // User registration routes
 router.get("/register", showUserRegistrationForm);
 router.post("/register", processUserRegistrationForm);
+// User login/out routes
+router.get("/login", showLoginForm);
+router.post("/login", processLoginForm);
+router.get("/logout", processLogout);
 
 // error-handling routes
 router.get("/test-error", testErrorPage);
