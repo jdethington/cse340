@@ -6,30 +6,34 @@
         <%= title %>
       </h1>
       <!-- Action Buttons -->
-      <div class="project-actions"><a href="/new-organization" class="btn btn-primary">Add a new organization</a>
-      </div>
+      <!-- // ======================================================================== -->
+      <% if (user && user.role_name=='admin' ) { %>
+        <div class="project-actions"><a href="/new-organization" class="btn btn-primary">Add a new organization</a>
+        </div>
+        <% } %>
+          <!-- // ======================================================================== -->
 
-      <h2>Here are a few of our partner organizations</h2>
+          <h2>Here are a few of our partner organizations</h2>
 
-      <ul class="organizations-list">
-        <% organizations.forEach(organization=> { %>
-          <li class="organization-card">
-            <a href="/organization/<%= organization.organization_id %>">
-              <img src="/images/<%= organization.logo_filename %>" alt="<%= organization.name %> logo">
-              <div>
-                <span>
-                  <%= organization.name %>
-                </span>
-                <span class="email">
-                  <%= organization.contact_email %>
-                </span>
-              </div>
-              <!-- <div>
+          <ul class="organizations-list">
+            <% organizations.forEach(organization=> { %>
+              <li class="organization-card">
+                <a href="/organization/<%= organization.organization_id %>">
+                  <img src="/images/<%= organization.logo_filename %>" alt="<%= organization.name %> logo">
+                  <div>
+                    <span>
+                      <%= organization.name %>
+                    </span>
+                    <span class="email">
+                      <%= organization.contact_email %>
+                    </span>
+                  </div>
+                  <!-- <div>
 							</div> -->
-            </a>
-          </li>
-          <% }); %>
-      </ul>
+                </a>
+              </li>
+              <% }); %>
+          </ul>
     </div>
   </main>
   <%- include('partials/footer') %>

@@ -6,21 +6,25 @@
         <%= title %>
       </h1>
       <!-- Action Buttons -->
-      <div class="actions"><a href="/new-category" class="btn btn-primary">Add a new category</a></div>
+      <!-- // ======================================================================== -->
+      <% if (user && user.role_name=='admin' ) { %>
+        <div class="actions"><a href="/new-category" class="btn btn-primary">Add a new category</a></div>
+        <% } %>
+          <!-- // ======================================================================== -->
 
-      <h2>Service Projects Categories</h2>
+          <h2>Service Projects Categories</h2>
 
-      <ul class="categories-list">
-        <% categories.forEach(category=> { %>
-          <a href="/category/<%= category.id %>">
-            <li class="category-card">
-              <h3>
-                <%= category.name %>
-              </h3>
-            </li>
-          </a>
-          <% }); %>
-      </ul>
+          <ul class="categories-list">
+            <% categories.forEach(category=> { %>
+              <a href="/category/<%= category.id %>">
+                <li class="category-card">
+                  <h3>
+                    <%= category.name %>
+                  </h3>
+                </li>
+              </a>
+              <% }); %>
+          </ul>
     </div>
   </main>
   <%- include('partials/footer') %>

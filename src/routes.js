@@ -39,6 +39,9 @@ import {
   processLogout,
   showDashboard,
   requireLogin,
+  // ========================================================================
+  requireRole,
+  // ========================================================================
 } from "./controllers/users.js";
 
 const router = express.Router();
@@ -48,39 +51,82 @@ router.get("/organizations", showOrganizationsPage);
 router.get("/organization/:id", showOrganizationDetailsPage);
 router.get("/projects", showProjectsPage);
 router.get("/project/:id", showProjectDetailsPage);
-// Route for new project page
-router.get("/new-project", showNewProjectForm);
-// Route to handle new project form submission
-router.post("/new-project", projectValidation, processNewProjectForm);
 router.get("/categories", showCategoriesPage);
 router.get("/category/:id", showCategoryPage);
-router.get("/new-organization", showNewOrganizationForm);
-// Route to display the edit organization form
-router.get("/edit-organization/:id", showEditOrganizationForm);
+// ========================================================================
+// --------------------------------------------------------------
 // Route to handle new organization form submission
+router.get("/new-organization", requireRole('admin'), showNewOrganizationForm);
 router.post(
   "/new-organization",
   organizationValidation,
+  requireRole("admin"),
   processNewOrganizationForm,
 );
+// --------------------------------------------------------------
 // Route to handle the edit organization form submission
+router.get(
+  "/edit-organization/:id",
+  requireRole("admin"),
+  showEditOrganizationForm,
+);
 router.post(
   "/edit-organization/:id",
   organizationValidation,
+  requireRole("admin"),
   processEditOrganizationForm,
 );
-// Routes to handle the assign categories to project form
-router.get("/assign-categories/:projectId", showAssignCategoriesForm);
-router.post("/assign-categories/:projectId", processAssignCategoriesForm);
+// --------------------------------------------------------------
+// Route to handle new project form submission
+router.get("/new-project", requireRole("admin"), showNewProjectForm);
+router.post(
+  "/new-project",
+  projectValidation,
+  requireRole("admin"),
+  processNewProjectForm,
+);
+// --------------------------------------------------------------
 // Routes to handle the update (edit) project form
-router.get("/edit-project/:id", showEditProjectForm);
-router.post("/edit-project/:id", projectValidation, processEditProjectForm);
+router.get("/edit-project/:id", requireRole("admin"), showEditProjectForm);
+router.post(
+  "/edit-project/:id",
+  projectValidation,
+  requireRole("admin"),
+  processEditProjectForm,
+);
+// --------------------------------------------------------------
 // Routes to handle the new category form
-router.get("/new-category", showNewCategoryForm);
-router.post("/new-category", categoryValidation, processNewCategoryForm);
+router.get("/new-category", requireRole("admin"), showNewCategoryForm);
+router.post(
+  "/new-category",
+  categoryValidation,
+  requireRole("admin"),
+  processNewCategoryForm,
+);
+// --------------------------------------------------------------
 // Routes to handle the update (edit) category form
-router.get("/edit-category/:id", showEditCategoryForm);
-router.post("/edit-category/:id", categoryValidation, processEditCategoryForm);
+router.get("/edit-category/:id", requireRole("admin"), showEditCategoryForm);
+router.post(
+  "/edit-category/:id",
+  categoryValidation,
+  requireRole("admin"),
+  processEditCategoryForm,
+);
+// --------------------------------------------------------------
+// Routes to handle the assign categories to project form
+router.get(
+  "/assign-categories/:projectId",
+  requireRole("admin"),
+  showAssignCategoriesForm,
+);
+router.post(
+  "/assign-categories/:projectId",
+  requireRole("admin"),
+  processAssignCategoriesForm,
+);
+
+// ========================================================================
+
 // User registration routes
 router.get("/register", showUserRegistrationForm);
 router.post("/register", processUserRegistrationForm);
@@ -89,7 +135,7 @@ router.get("/login", showLoginForm);
 router.post("/login", processLoginForm);
 router.get("/logout", processLogout);
 // Dashboard with middleware checking
-router.get("/dashboard", requireLogin, showDashboard)
+router.get("/dashboard", requireLogin, showDashboard);
 
 // error-handling routes
 router.get("/test-error", testErrorPage);
