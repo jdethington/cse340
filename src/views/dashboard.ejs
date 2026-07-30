@@ -1,17 +1,29 @@
 <%- include('partials/header') %>
 
     <main>
-        <h1>
-            <%= title %>
-        </h1>
+        <div class="container">
 
-        <h2>Dashboard</h2>
-        <p><strong>Name: </strong>
-            <%= name %>
-        </p>
-        <p><strong>Username: </strong>
-            <%= email %>
-        </p>
+            <h1>
+                <%= title %>
+            </h1>
+
+            <h2>Dashboard</h2>
+            <p><strong>Name: </strong>
+                <%= name %>
+            </p>
+            <p><strong>Username: </strong>
+                <%= email %>
+            </p>
+        </div>
+        <div>
+            <!-- Action Buttons -->
+            <!-- // ======================================================================== -->
+            <% if (user && user.role_name=='admin' ) { %>
+                <div class="project-actions"><a href="/users" class="btn btn-primary">Users</a>
+                </div>
+                <% } %>
+                    <!-- // ======================================================================== -->
+        </div>
 
     </main>
 

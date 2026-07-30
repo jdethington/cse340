@@ -42,6 +42,7 @@ import {
   // ========================================================================
   requireRole,
   // ========================================================================
+  showUsers,
 } from "./controllers/users.js";
 
 const router = express.Router();
@@ -56,7 +57,7 @@ router.get("/category/:id", showCategoryPage);
 // ========================================================================
 // --------------------------------------------------------------
 // Route to handle new organization form submission
-router.get("/new-organization", requireRole('admin'), showNewOrganizationForm);
+router.get("/new-organization", requireRole("admin"), showNewOrganizationForm);
 router.post(
   "/new-organization",
   organizationValidation,
@@ -136,6 +137,8 @@ router.post("/login", processLoginForm);
 router.get("/logout", processLogout);
 // Dashboard with middleware checking
 router.get("/dashboard", requireLogin, showDashboard);
+
+router.get("/users", requireRole("admin"), showUsers);
 
 // error-handling routes
 router.get("/test-error", testErrorPage);
