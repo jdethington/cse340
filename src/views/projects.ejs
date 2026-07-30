@@ -6,38 +6,42 @@
         <%= title %>
       </h1>
       <!-- Action Buttons -->
-      <div class="project-actions"><a href="/new-project" class="btn btn-primary">Add a New Service Project</a></div>
+      <!-- // ======================================================================== -->
+      <% if (user && user.role_name=='admin' ) { %>
+        <div class="project-actions"><a href="/new-project" class="btn btn-primary">Add a New Service Project</a></div>
+        <% } %>
+          <!-- // ======================================================================== -->
 
-      <h2>Upcoming Service Projects</h2>
+          <h2>Upcoming Service Projects</h2>
 
-      <ul class="projects-grid">
-        <% projects.forEach(project=> { %>
-          <li class="project-card">
+          <ul class="projects-grid">
+            <% projects.forEach(project=> { %>
+              <li class="project-card">
 
-            <a href="/project/<%= project.project_id %>">
-              <h3 class="name">
-                <%= project.title %>
-              </h3>
-            </a>
+                <a href="/project/<%= project.project_id %>">
+                  <h3 class="name">
+                    <%= project.title %>
+                  </h3>
+                </a>
 
-            <p>
-              <%= project.description %>
-            </p>
-            <p><strong>Date:</strong>
-              <%= project.date_short %>
-            </p>
-            <p><strong>Location:</strong>
-              <%= project.location %>
-            </p>
-            <a href="/organization/<%= project.organization_id %>">
-              <p class="name">
-                <%= project.organization_name %>
-              </p>
-            </a>
+                <p>
+                  <%= project.description %>
+                </p>
+                <p><strong>Date:</strong>
+                  <%= project.date_short %>
+                </p>
+                <p><strong>Location:</strong>
+                  <%= project.location %>
+                </p>
+                <a href="/organization/<%= project.organization_id %>">
+                  <p class="name">
+                    <%= project.organization_name %>
+                  </p>
+                </a>
 
-          </li>
-          <% }); %>
-      </ul>
+              </li>
+              <% }); %>
+          </ul>
     </div>
   </main>
   <%- include('partials/footer') %>

@@ -21,13 +21,18 @@ const createUser = async (name, email, passwordHash) => {
   }
   return result.rows[0].user_id;
 };
-
+// ========================================================================
+// Login information
 const findUserByEmail = async (email) => {
+  // -----------------------------------------------------------------
   const query = `
-        SELECT user_id, name, email, password_hash, role_id 
-        FROM users 
-        WHERE email = $1;
+    SELECT u.user_id, u.name, u.email, u.password_hash, r.role_name 
+    FROM users u
+    JOIN roles r ON u.role_id = r.role_id
+    WHERE u.email = $1
     `;
+  // -----------------------------------------------------------------
+
   const queryParams = [email];
 
   const result = await db.query(query, queryParams);
@@ -38,6 +43,8 @@ const findUserByEmail = async (email) => {
 
   return result.rows[0];
 };
+// ========================================================================
+
 
 const verifyPassword = async (password, passwordHash) => {
   return bcrypt.compare(password, passwordHash);

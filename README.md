@@ -1,9 +1,18 @@
 # cse340
+
 GitHub link:
 https://github.com/jdethington/cse340
 
 Render link:
 https://cse340-jde.onrender.com/
+
+<!-- // ======================================================================== -->
+
+email/username: admin@example.com
+
+password: cse340!
+
+<!-- // ======================================================================== -->
 
 ---
 
@@ -24,6 +33,7 @@ week02-Assignment-data-retrieval.sql
 - 3xx: Redirection – Tells the client to take additional actions to complete the request, often involving a new URL.
 - 4xx: Client Error – Points to issues caused by the client, such as a bad request or a missing resource.
 - 5xx: Server Error – Indicates that the server encountered an issue and was unable to process the request properly.
+
 ### These categories help identify whether the issue lies with the client, server, or elsewhere in the communication process.
 
 - 200 OK: The request was successful.
@@ -32,4 +42,3 @@ week02-Assignment-data-retrieval.sql
 - 401 Unauthorized: Authentication is required to access the resource.
 - 404 Not Found: The requested resource could not be found.
 - 500 Internal Server Error: The server encountered an unexpected condition that prevented it from fulfilling the request.
-
