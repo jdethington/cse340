@@ -1,0 +1,32 @@
+<%- include('partials/header') %>
+  <main>
+    <div class="container">
+      <h1>
+        <%= title %>
+      </h1>
+
+      <h2>Registered Users</h2>
+      <!-- Action Buttons -->
+      <div class="project-actions"><a href="/dashboard" class="btn btn-primary">My Dashboard</a></div>
+
+      <ul class="users-list">
+        <% users.forEach(user=> { %>
+          <li class="users-card">
+            <p class="userId"><strong>ID: </strong>
+              <%= user.id %>
+            </p>
+            <p class="usedName"><strong>Name: </strong>
+              <%= user.name %>
+            </p>
+            <p class="email"><strong>Username: </strong>
+              <%= user.email %>
+            </p>
+            <p class="userRole"><strong>Role: </strong>
+              <%= user.role %>
+            </p>
+          </li>
+          <% })%>
+      </ul>
+    </div>
+  </main>
+  <%- include('partials/footer') %>

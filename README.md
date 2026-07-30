@@ -6,13 +6,11 @@ https://github.com/jdethington/cse340
 Render link:
 https://cse340-jde.onrender.com/
 
-<!-- // ======================================================================== -->
+---
 
 email/username: admin@example.com
 
 password: cse340!
-
-<!-- // ======================================================================== -->
 
 ---
 

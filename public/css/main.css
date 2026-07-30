@@ -270,7 +270,8 @@ h3 {
 /* Cards */
 .categories-list,
 .projects-grid,
-.organizations-list {
+.organizations-list,
+.users-list {
   list-style: none;
   padding: 0;
   margin: 2rem 0;
@@ -285,13 +286,15 @@ h3 {
 .categories-list {
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
 }
-.projects-grid {
+.projects-grid,
+.users-list {
   grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
 }
 
 .project-card,
 .category-card,
-.organization-card {
+.organization-card,
+.users-card {
   background-color: var(--card-bg);
   border: 1px solid var(--border-color);
   border-radius: 12px;
@@ -312,10 +315,14 @@ h3 {
     transform: translateY(-4px);
   }
 }
+.users-card {
+  text-align: left;
+}
 
 .project-card:hover,
 .category-card:hover,
-.organization-card:hover {
+.organization-card:hover,
+.users-card:hover {
   box-shadow: var(--shadow-lg);
   transform: translateY(-6px);
   border-color: #a1a1aa;
@@ -381,7 +388,8 @@ footer {
   }
 
   .projects-grid,
-  .categories-list {
+  .categories-list,
+  .users-list {
     grid-template-columns: 1fr;
   }
 

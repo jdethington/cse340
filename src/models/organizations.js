@@ -1,5 +1,9 @@
 import db from "./db.js";
 
+/**
+ * Retrieves ALL organizations in the database.
+ * @returns {Array} organization record.
+ */
 const getAllOrganizations = async () => {
   const query = `
     SELECT organization_id,
@@ -15,6 +19,11 @@ const getAllOrganizations = async () => {
   return result.rows;
 };
 
+/**
+ * Retrieves the organization in the database.
+ * @param {string} organizationId - The ID of the organization.
+ * @returns {Array} organization record.
+ */
 const getOrganizationDetails = async (organizationId) => {
   const query = `
     SELECT
@@ -71,6 +80,15 @@ const createOrganization = async (
   return result.rows[0].organization_id;
 };
 
+/**
+ * Updates organization in the database.
+ * @param {string} organizationId - The ID of the organization.
+ * @param {string} name - The name of the organization.
+ * @param {string} description - A description of the organization.
+ * @param {string} contactEmail - The contact email for the organization.
+ * @param {string} logoFilename - The filename of the organization's logo.
+ * @returns {string} The id of the organization record.
+ */
 const updateOrganization = async (
   organizationId,
   name,

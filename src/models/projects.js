@@ -1,5 +1,9 @@
 import db from "./db.js";
 
+/**
+ * Retrieves ALL projects in the database.
+ * @returns {Array} project records.
+ */
 const getAllProjects = async () => {
   const query = `
     SELECT

@@ -136,7 +136,6 @@ const processEditProjectForm = async (req, res) => {
   }
 
   const projectId = req.params.id;
-  // check each of these=======================================================================
   const { title, description, location, date, organizationId } = req.body;
   console.log(title, description, location, date, organizationId);
   // does this try block help?
@@ -155,7 +154,6 @@ const processEditProjectForm = async (req, res) => {
   } catch (error) {
     console.error("Error updating project:", error);
     req.flash("error", "There was an error updating the service project.");
-    // res.redirect("/new-project");
     res.render(`/edit-project/${projectId}`);
   }
 };

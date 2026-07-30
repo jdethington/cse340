@@ -21,17 +21,30 @@ const createUser = async (name, email, passwordHash) => {
   }
   return result.rows[0].user_id;
 };
-// ========================================================================
+
+const getAllUsers = async () => {
+  const query = `
+    SELECT u.user_id AS id, u.name AS name, u.email AS email, r.role_name AS role 
+    FROM users u
+    JOIN roles r ON u.role_id = r.role_id
+    `;
+  const result = await db.query(query);
+
+  if (result.rows.length === 0) {
+    return null; // User not found
+  }
+
+  return result.rows;
+};
+
 // Login information
 const findUserByEmail = async (email) => {
-  // -----------------------------------------------------------------
   const query = `
     SELECT u.user_id, u.name, u.email, u.password_hash, r.role_name 
     FROM users u
     JOIN roles r ON u.role_id = r.role_id
     WHERE u.email = $1
     `;
-  // -----------------------------------------------------------------
 
   const queryParams = [email];
 
@@ -43,13 +56,12 @@ const findUserByEmail = async (email) => {
 
   return result.rows[0];
 };
-// ========================================================================
-
 
 const verifyPassword = async (password, passwordHash) => {
   return bcrypt.compare(password, passwordHash);
 };
 
+// Find a better way to remove password_hash ===================================
 const authenticateUser = async (email, password) => {
   const user = await findUserByEmail(email);
   if (!user) {
@@ -59,11 +71,10 @@ const authenticateUser = async (email, password) => {
   const result = verifyPassword(password, user.password_hash);
   if (result) {
     user.password_hash = "";
-    // user.password_hash.remove();
     console.log(user);
 
     return user;
   }
 };
 
-export { createUser, authenticateUser };
+export { createUser, authenticateUser, getAllUsers };
