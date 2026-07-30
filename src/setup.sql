@@ -205,5 +205,5 @@ ON CONFLICT DO NOTHING;
 -- (6, 1),
 -- (11, 3);
 
--- Run an UPDATE statement to set that account's role_id to the id of the admin role by using a subquery. 
+-- UPDATE statement to set admin@example.com to "admin"
 -- UPDATE users SET role_id = (SELECT role_id FROM roles WHERE role_name = 'admin') WHERE email = 'admin@example.com';
