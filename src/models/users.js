@@ -61,20 +61,20 @@ const verifyPassword = async (password, passwordHash) => {
   return bcrypt.compare(password, passwordHash);
 };
 
-// Find a better way to remove password_hash ===================================
 const authenticateUser = async (email, password) => {
   const user = await findUserByEmail(email);
   if (!user) {
     return null;
   }
   console.log(user);
-  const result = verifyPassword(password, user.password_hash);
+  const result = await verifyPassword(password, user.password_hash);
   if (result) {
-    user.password_hash = "";
+    delete user.password_hash;
     console.log(user);
 
     return user;
   }
+  return null;
 };
 
 export { createUser, authenticateUser, getAllUsers };
