@@ -9,7 +9,6 @@ import { getProjectsByOrganizationId } from "../models/projects.js";
 import { body, validationResult } from "express-validator";
 
 // Define validation and sanitization rules for organization form
-// Define validation rules for organization form
 const organizationValidation = [
   body("name")
     .trim()
@@ -45,7 +44,6 @@ const showOrganizationsPage = async (req, res) => {
 // /organization/[id]
 const showOrganizationDetailsPage = async (req, res) => {
   const organizationId = req.params.id;
-  // Could this be reduced to 1 parameter?
   const organizationDetails = await getOrganizationDetails(organizationId);
   const projects = await getProjectsByOrganizationId(organizationId);
   const title = "Organization Details";

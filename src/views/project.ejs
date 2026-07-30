@@ -6,7 +6,6 @@
         <%= title %>
       </h1>
       <!-- Action Buttons -->
-      <!-- // ======================================================================== -->
       <% if (user && user.role_name=='admin' ) { %>
         <div class="project-actions"><a href="/edit-project/<%= project.project_id %>" class="btn btn-primary">Update
             Project</a>
@@ -14,7 +13,6 @@
           <a href="/assign-categories/<%= project.project_id %>" class="btn btn-secondary">Edit Categories</a>
         </div>
         <% } %>
-          <!-- // ======================================================================== -->
 
           <h2>
             <%= project.title %>

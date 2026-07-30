@@ -30,7 +30,6 @@ const getCategory = async (categoryId) => {
 };
 
 // Retrieve all categories for a given service project.
-// Changed the name from "getAllCategoriesForServiceProject" ======================
 const getCategoriesByServiceProjectId = async (projectId) => {
   const query = `
     SELECT
@@ -71,7 +70,6 @@ const getAllServiceProjectsForCategory = async (categoryId) => {
   return result.rows;
   // return result.rows.length > 0 ? result.rows[0] : null;
 };
-// verify order of inputs
 const assignCategoryToProject = async (projectId, categoryId) => {
   const query = `
     INSERT INTO project_category (project_id, category_id)
@@ -130,7 +128,6 @@ const updateCategory = async (name, description, categoryId) => {
 export {
   getAllCategories,
   getCategory,
-  // getAllCategoriesForServiceProject,
   getAllServiceProjectsForCategory,
   updateCategoryAssignments,
   getCategoriesByServiceProjectId,

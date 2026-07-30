@@ -6,12 +6,10 @@
         <%= title %>
       </h1>
       <!-- Action Buttons -->
-      <!-- // ======================================================================== -->
       <% if (user && user.role_name=='admin' ) { %>
         <div class="project-actions"><a href="/new-organization" class="btn btn-primary">Add a new organization</a>
         </div>
         <% } %>
-          <!-- // ======================================================================== -->
 
           <h2>Here are a few of our partner organizations</h2>
 
@@ -28,8 +26,6 @@
                       <%= organization.contact_email %>
                     </span>
                   </div>
-                  <!-- <div>
-							</div> -->
                 </a>
               </li>
               <% }); %>

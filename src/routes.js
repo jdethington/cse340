@@ -39,9 +39,7 @@ import {
   processLogout,
   showDashboard,
   requireLogin,
-  // ========================================================================
   requireRole,
-  // ========================================================================
   showUsers,
 } from "./controllers/users.js";
 
@@ -54,8 +52,6 @@ router.get("/projects", showProjectsPage);
 router.get("/project/:id", showProjectDetailsPage);
 router.get("/categories", showCategoriesPage);
 router.get("/category/:id", showCategoryPage);
-// ========================================================================
-// --------------------------------------------------------------
 // Route to handle new organization form submission
 router.get("/new-organization", requireRole("admin"), showNewOrganizationForm);
 router.post(
@@ -64,7 +60,6 @@ router.post(
   requireRole("admin"),
   processNewOrganizationForm,
 );
-// --------------------------------------------------------------
 // Route to handle the edit organization form submission
 router.get(
   "/edit-organization/:id",
@@ -77,7 +72,6 @@ router.post(
   requireRole("admin"),
   processEditOrganizationForm,
 );
-// --------------------------------------------------------------
 // Route to handle new project form submission
 router.get("/new-project", requireRole("admin"), showNewProjectForm);
 router.post(
@@ -86,7 +80,6 @@ router.post(
   requireRole("admin"),
   processNewProjectForm,
 );
-// --------------------------------------------------------------
 // Routes to handle the update (edit) project form
 router.get("/edit-project/:id", requireRole("admin"), showEditProjectForm);
 router.post(
@@ -95,7 +88,6 @@ router.post(
   requireRole("admin"),
   processEditProjectForm,
 );
-// --------------------------------------------------------------
 // Routes to handle the new category form
 router.get("/new-category", requireRole("admin"), showNewCategoryForm);
 router.post(
@@ -104,7 +96,6 @@ router.post(
   requireRole("admin"),
   processNewCategoryForm,
 );
-// --------------------------------------------------------------
 // Routes to handle the update (edit) category form
 router.get("/edit-category/:id", requireRole("admin"), showEditCategoryForm);
 router.post(
@@ -113,7 +104,6 @@ router.post(
   requireRole("admin"),
   processEditCategoryForm,
 );
-// --------------------------------------------------------------
 // Routes to handle the assign categories to project form
 router.get(
   "/assign-categories/:projectId",
@@ -125,8 +115,6 @@ router.post(
   requireRole("admin"),
   processAssignCategoriesForm,
 );
-
-// ========================================================================
 
 // User registration routes
 router.get("/register", showUserRegistrationForm);

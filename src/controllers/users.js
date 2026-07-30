@@ -86,7 +86,6 @@ const showDashboard = async (req, res) => {
   });
 };
 
-// ========================================================================
 /**
  * Middleware factory to require specific role for route access
  * Returns middleware that checks if user has the required role
@@ -112,7 +111,7 @@ const requireRole = (role) => {
     next();
   };
 };
-// ========================================================================
+
 const showUsers = async (req, res) => {
   const users = await getAllUsers();
   const title = "Registered Users";
@@ -128,8 +127,6 @@ export {
   processLogout,
   requireLogin,
   showDashboard,
-  // ========================================================================
   requireRole,
-  // ========================================================================
   showUsers,
 };

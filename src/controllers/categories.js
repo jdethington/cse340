@@ -3,7 +3,6 @@ import { body, validationResult } from "express-validator";
 import {
   getAllCategories,
   getCategory,
-  // getAllCategoriesForServiceProject,
   getCategoriesByServiceProjectId,
   getAllServiceProjectsForCategory,
   updateCategoryAssignments,
@@ -13,7 +12,6 @@ import {
 import { getProjectDetails } from "../models/projects.js";
 
 // Define validation and sanitization rules for category form
-// Define validation rules for category form
 const categoryValidation = [
   body("name")
     .trim()

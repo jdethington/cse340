@@ -6,13 +6,11 @@
 				<%= title %>
 			</h1>
 			<!-- Action Buttons -->
-			<!-- // ======================================================================== -->
 			<% if (user && user.role_name=='admin' ) { %>
 				<div class="project-actions"><a href="/edit-organization/<%= organizationDetails.organization_id %>"
 						class="btn btn-primary">Edit
 						Organization</a></div>
 				<% } %>
-					<!-- // ======================================================================== -->
 
 					<img src="/images/<%= organizationDetails.logo_filename %>"
 						alt="<%= organizationDetails.name %> logo">
