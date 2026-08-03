@@ -6,7 +6,7 @@ const createUser = async (name, email, passwordHash) => {
   const query = `
         INSERT INTO users (name, email, password_hash, role_id)
         VALUES ($1, $2, $3, (SELECT role_id FROM roles WHERE role_name = $4))
-        RETURNING user_id;
+        RETURNING user_id, name, role_id;
     `;
   const queryParams = [name, email, passwordHash, default_role];
 
@@ -17,7 +17,9 @@ const createUser = async (name, email, passwordHash) => {
   }
 
   if (process.env.ENABLE_SQL_LOGGING === "true") {
-    console.log("Created new user with ID: ", result.rows[0].user_id);
+    console.log("Created new user ID: ", result.rows[0].user_id);
+    console.log("Created new user NAME: ", result.rows[0].name);
+    console.log("Created new user ROLE: ", result.rows[0].role_id);
   }
   return result.rows[0].user_id;
 };
@@ -156,6 +158,24 @@ const getProjectsForUser = async (userId) => {
   return results;
 };
 
+const isUserVolunteering = async (userId, projectId) => {
+  const query = `
+    SELECT
+      user_id,
+      project_id
+    FROM project_volunteer
+    WHERE user_id = $1 AND project_id = $2
+    ;
+  `;
+  const queryParams = [userId, projectId];
+  const result = await db.query(query, queryParams);
+  if (result.length > 0) {
+    return true;
+  } else {
+    return false;
+  }
+};
+
 // ==========================================================================
 
 export {
@@ -165,4 +185,5 @@ export {
   addUserToProject,
   removeUserFromProject,
   getProjectsForUser,
+  isUserVolunteering,
 };

@@ -1,6 +1,7 @@
 import bcrypt from "bcrypt";
 import { createUser, authenticateUser, getAllUsers } from "../models/users.js";
 import flash from "../middleware/flash.js";
+import { getAllProjectsForUser } from "../models/projects.js";
 
 const showUserRegistrationForm = async (req, res) => {
   res.render("register", { title: "Register" });
@@ -42,7 +43,7 @@ const processLoginForm = async (req, res) => {
     if (user) {
       // Store user info in session
       req.session.user = user;
-      req.flash("success", "Login successful!");
+      req.flash("success", `Login successful! Welcome ${user.name}.`);
 
       if (res.locals.NODE_ENV === "development") {
         console.log("User logged in:", user);
@@ -79,10 +80,17 @@ const requireLogin = async (req, res, next) => {
 
 const showDashboard = async (req, res) => {
   const user = req.session.user;
+
+  const projects = await getAllProjectsForUser(user.user_id);
+  if (res.locals.NODE_ENV === "development") {
+    console.log("User logged in:", user);
+    console.log("User projects:", projects);
+  }
   res.render("dashboard", {
     title: "Dashboard",
     name: user.name,
     email: user.email,
+    projects,
   });
 };
 
