@@ -92,6 +92,31 @@ const getProjectDetails = async (id) => {
   return result.rows.length > 0 ? result.rows[0] : null;
 };
 
+// ==================================================================================
+const getAllProjectsForUser = async (userId) => {
+  const query = `
+    SELECT
+      p.project_id,
+      p.title,
+      p.description,
+      p.location,
+      p.organization_id,
+      TO_CHAR(p.project_date, 'Month DD, YYYY') AS date_long,
+      TO_CHAR(p.project_date, 'MM-DD-YYYY') AS date_short,
+      p.project_date AS date,
+      o.name AS organization_name
+    FROM project p
+    JOIN project_volunteer pv ON p.project_id = pv.project_id
+    JOIN organization o ON p.organization_id = o.organization_id
+    WHERE pv.user_id = $1
+    ;
+  `;
+  const queryParams = [userId];
+  const results = await db.query(query, queryParams);
+  return results.rows;
+};
+// ==================================================================================
+
 const createProject = async (
   title,
   description,
@@ -167,4 +192,5 @@ export {
   getProjectDetails,
   createProject,
   updateProject,
+  getAllProjectsForUser,
 };

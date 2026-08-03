@@ -15,14 +15,40 @@
                 <%= email %>
             </p>
         </div>
-        <div>
-            <!-- Action Buttons -->
+        <!-- Action Buttons -->
+        <% if (user) { %>
             <% if (user && user.role_name=='admin' ) { %>
-                <div class="project-actions"><a href="/users" class="btn btn-primary">Users</a>
+                <div class="container">
+                    <div class="project-actions"><a href="/users" class="btn btn-primary">Users</a>
+                    </div>
                 </div>
                 <% } %>
-        </div>
+                    <!-- List of all projects that the user has signed up to volunteer for. -->
+                    <div class="container">
+                        <% if (projects.length> 0) { %>
+                            <ul class="projects-grid">
+                                <% projects.forEach(project=> { %>
+                                    <li class="project-card dashboard">
+                                        <a href="/project/<%= project.project_id %>">
+                                            <h3 class="name">
+                                                <%= project.title %>
+                                            </h3>
+                                        </a>
+                                        <!-- ================================================================================ -->
+                                        <a href="/project/stopVolunteering/<%= project.project_id %>"
+                                            class="btn btn-cancel">
+                                            Stop Volunteering
+                                        </a>
+                                        <!-- ================================================================================ -->
 
+                                    </li>
+                                    <% }) %>
+                            </ul>
+                            <% } else { %>
+                                <h3>Please volunteer for a project.</h3>
+                                <% } %>
+                    </div>
+                    <% } %>
     </main>
 
     <%- include('partials/footer') %>

@@ -6,46 +6,71 @@
         <%= title %>
       </h1>
       <!-- Action Buttons -->
-      <% if (user && user.role_name=='admin' ) { %>
-        <div class="project-actions"><a href="/edit-project/<%= project.project_id %>" class="btn btn-primary">Update
-            Project</a>
+      <% if (user) { %>
 
-          <a href="/assign-categories/<%= project.project_id %>" class="btn btn-secondary">Edit Categories</a>
-        </div>
-        <% } %>
+        <div class="project-actions">
+          <div>
+        <!-- Volunteer add/remove button -->
+        <% if (isVolunteering) { %>
 
-          <h2>
-            <%= project.title %>
-          </h2>
-
-          <p><strong>Description: </strong>
-            <%= project.description %>
-          </p>
-          <p><strong>Date:</strong>
-            <%= project.date_long %>
-          </p>
-          <p><strong>Location:</strong>
-            <%= project.location %>
-          </p>
-          <p><strong>Partner Organization: </strong>
-            <a href="/organization/<%= project.organization_id  %>" class="btn btn-small">
-              <%= project.organization_name %>
-            </a>
-          </p>
-
-
-          <h3>Categories</h3>
-          <ul class="categories-list">
-            <% categories.forEach(category=> { %>
-              <a href="/category/<%= category.category_id %>">
-                <li class="category-card">
-                  <h3>
-                    <%= category.name %>
-                  </h3>
-                </li>
+              <a href="/project/stopVolunteering/<%= project.project_id %>" class="btn btn-primary">
+                Stop Volunteering
               </a>
-              <% }); %>
-          </ul>
+              <p class="btn volunteer-status">You are volunteering for this project</p>
+            </div>
+            <% } else { %>
+                <a href="/project/volunteering/<%= project.project_id %>" class="btn btn-primary">
+                  Volunteer for Project
+                </a>
+              </div>
+              <% } %>
+                <!-- ADMIN BUTTONS -->
+                <% if (user.role_name==='admin' ) { %>
+                  <div>
+                    <a href="/edit-project/<%= project.project_id %>" class="btn btn-primary">
+                      Update Project
+                    </a>
+                    <a href="/assign-categories/<%= project.project_id %>" class="btn btn-secondary">
+                      Edit Categories
+                    </a>
+                  </div>
+                  <% } %>
+
+          </div>
+          <% } %>
+
+            <h2>
+              <%= project.title %>
+            </h2>
+
+            <p><strong>Description: </strong>
+              <%= project.description %>
+            </p>
+            <p><strong>Date:</strong>
+              <%= project.date_long %>
+            </p>
+            <p><strong>Location:</strong>
+              <%= project.location %>
+            </p>
+            <p><strong>Partner Organization: </strong>
+              <a href="/organization/<%= project.organization_id  %>" class="btn btn-small">
+                <%= project.organization_name %>
+              </a>
+            </p>
+
+
+            <h3>Categories</h3>
+            <ul class="categories-list">
+              <% categories.forEach(category=> { %>
+                <a href="/category/<%= category.category_id %>">
+                  <li class="category-card">
+                    <h3>
+                      <%= category.name %>
+                    </h3>
+                  </li>
+                </a>
+                <% }); %>
+            </ul>
 
     </div>
   </main>
