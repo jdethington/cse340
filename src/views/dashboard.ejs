@@ -29,7 +29,12 @@
                             <ul class="projects-grid">
                                 <% projects.forEach(project=> { %>
                                     <li class="project-card">
-
+                                        <!-- ================================================================================ -->
+                                        <a href="/project/stopVolunteering/<%= project.project_id %>"
+                                            class="btn btn-primary">
+                                            Stop Volunteering
+                                        </a>
+                                        <!-- ================================================================================ -->
                                         <a href="/project/<%= project.project_id %>">
                                             <h3 class="name">
                                                 <%= project.title %>

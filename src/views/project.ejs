@@ -11,15 +11,11 @@
 
           <!-- Volunteer add/remove button -->
           <% if (isVolunteering) { %>
-            <p class="btn volunteer-status">You are volunteering for this project</p>
-            <!-- ================================================================================ -->
             <a href="/project/stopVolunteering/<%= project.project_id %>" class="btn btn-primary">
-              <!-- ============================================================================== -->
               Stop Volunteering
             </a>
+            <p class="btn volunteer-status">You are volunteering for this project</p>
             <% } else { %>
-
-              <p class="btn volunteer-status">You are NOT volunteering for this project</p>
 
               <a href="/project/volunteering/<%= project.project_id %>" class="btn btn-primary">
                 Volunteer for Project
