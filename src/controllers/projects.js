@@ -11,6 +11,7 @@ import {
 } from "../models/categories.js";
 import { getAllOrganizations } from "../models/organizations.js";
 import { body, validationResult } from "express-validator";
+import { getUserIsVolunteeringForProject } from "../models/users.js";
 
 const NUMBER_OF_UPCOMING_PROJECTS = 5;
 // Define validation and sanitization rules for project form
@@ -58,11 +59,19 @@ const showProjectsPage = async (req, res) => {
 // Shows the details of a single service project
 const showProjectDetailsPage = async (req, res) => {
   const projectID = req.params.id;
+  let isVolunteering = false;
+
+  if (req.session.user) {
+    const userID = req.session.user.user_id;
+    isVolunteering = await getUserIsVolunteeringForProject(userID, projectID);
+  }
   const project = await getProjectDetails(projectID);
   const categories = await getCategoriesByServiceProjectId(projectID);
+
   const title = "Service Project Details";
-  console.log("Project data:", project, categories);
-  res.render("project", { title, project, categories });
+  // console.log("isVolunteering:", isVolunteering);
+  // console.log("Project data:", project, categories);
+  res.render("project", { title, project, categories, isVolunteering });
 };
 
 const showNewProjectForm = async (req, res) => {

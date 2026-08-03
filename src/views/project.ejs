@@ -6,11 +6,36 @@
         <%= title %>
       </h1>
       <!-- Action Buttons -->
-      <% if (user && user.role_name=='admin' ) { %>
-        <div class="project-actions"><a href="/edit-project/<%= project.project_id %>" class="btn btn-primary">Update
-            Project</a>
+      <% if (user) { %>
+        <div class="project-actions">
 
-          <a href="/assign-categories/<%= project.project_id %>" class="btn btn-secondary">Edit Categories</a>
+          <!-- Volunteer add/remove button -->
+          <% if (isVolunteering) { %>
+            <p class="btn volunteer-status">You are volunteering for this project</p>
+            <!-- ================================================================================ -->
+            <a href="/project/stopVolunteering/<%= project.project_id %>" class="btn btn-primary">
+              <!-- ============================================================================== -->
+              Stop Volunteering
+            </a>
+            <% } else { %>
+
+              <p class="btn volunteer-status">You are NOT volunteering for this project</p>
+
+              <a href="/project/volunteering/<%= project.project_id %>" class="btn btn-primary">
+                Volunteer for Project
+              </a>
+              <% } %>
+
+                <!-- ADMIN BUTTONS -->
+                <% if (user.role_name==='admin' ) { %>
+                  <a href="/edit-project/<%= project.project_id %>" class="btn btn-primary">
+                    Update Project
+                  </a>
+                  <a href="/assign-categories/<%= project.project_id %>" class="btn btn-secondary">
+                    Edit Categories
+                  </a>
+                  <% } %>
+
         </div>
         <% } %>
 

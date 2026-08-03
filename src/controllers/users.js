@@ -1,5 +1,12 @@
 import bcrypt from "bcrypt";
-import { createUser, authenticateUser, getAllUsers } from "../models/users.js";
+import {
+  createUser,
+  authenticateUser,
+  getAllUsers,
+  addUserToProject,
+  removeUserFromProject,
+  getUserIsVolunteeringForProject,
+} from "../models/users.js";
 import flash from "../middleware/flash.js";
 import { getAllProjectsForUser } from "../models/projects.js";
 
@@ -97,7 +104,6 @@ const showDashboard = async (req, res) => {
 /**
  * Middleware factory to require specific role for route access
  * Returns middleware that checks if user has the required role
- *
  * @param {string} role - The role name required (e.g., 'admin', 'user')
  * @returns {Function} Express middleware function
  */
@@ -127,6 +133,90 @@ const showUsers = async (req, res) => {
   res.render("users", { title, users });
 };
 
+// Add Volunteer to Project
+const addVolunteerToProject = async (req, res) => {
+  const projectId = req.params.id;
+  const user = req.session.user;
+
+  if (!projectId || !user) {
+    req.flash("error", "Unable to process your request. Please try again.");
+    return res.redirect("/projects");
+  }
+
+  const userId = user.user_id;
+  if (process.env.NODE_ENV === "development") {
+    console.log("addVolunteerToProject projectId:", projectId);
+    console.log("addVolunteerToProject user:", user);
+  }
+
+  const isVolunteer = await getUserIsVolunteeringForProject(userId, projectId);
+  if (isVolunteer) {
+    req.flash("error", "You have already volunteered for this project.");
+    return res.redirect(`/project/${projectId}`);
+  }
+  if (process.env.NODE_ENV === "development") {
+    console.log("isVolunteer:", isVolunteer);
+  }
+
+  const response = await addUserToProject(projectId, userId);
+  if (process.env.ENABLE_SQL_LOGGING === "true") {
+    console.log("addVolunteerToProject", response);
+  }
+
+  if (!response) {
+    req.flash(
+      "error",
+      "Unable to volunteer for this project. Please try again.",
+    );
+    return res.redirect(`/project/${projectId}`);
+  }
+
+  req.flash("success", "You have volunteered for project.");
+  res.redirect(`/project/${projectId}`);
+};
+// //////////////////////////////////////////////////////////////////////
+const removeVolunteerFromProject = async (req, res) => {
+  const projectId = req.params.id;
+  const user = req.session.user;
+  const userId = user.user_id;
+  if (process.env.NODE_ENV === "development") {
+    console.log("removeVolunteerFromProject projectId:", projectId);
+    console.log("removeVolunteerFromProject user:", user);
+  }
+
+  if (!projectId || !user) {
+    req.flash("error", "Unable to process your request. Please try again.");
+    return res.redirect("/projects");
+  }
+
+  const isVolunteer = await getUserIsVolunteeringForProject(userId, projectId);
+  if (!isVolunteer) {
+    req.flash(
+      "error",
+      "Unable to remove. You are not volunteered for this project.",
+    );
+    return res.redirect(`/project/${projectId}`);
+  }
+  if (process.env.NODE_ENV === "development") {
+    console.log("isVolunteer:", isVolunteer);
+  }
+
+  const response = await removeUserFromProject(projectId, userId);
+  if (process.env.ENABLE_SQL_LOGGING === "true") {
+    console.log("removeVolunteerFromProject", response);
+  }
+
+  if (!response) {
+    req.flash(
+      "error",
+      "Unable to remove volunteer from this project. Please try again.",
+    );
+    return res.redirect(`/project/${projectId}`);
+  }
+  req.flash("success", "You are no longer a volunteer for this project.");
+  res.redirect(`/project/${projectId}`);
+};
+
 export {
   showUserRegistrationForm,
   processUserRegistrationForm,
@@ -137,4 +227,6 @@ export {
   showDashboard,
   requireRole,
   showUsers,
+  addVolunteerToProject,
+  removeVolunteerFromProject,
 };

@@ -68,11 +68,13 @@ const authenticateUser = async (email, password) => {
   if (!user) {
     return null;
   }
-  console.log(user);
   const result = await verifyPassword(password, user.password_hash);
   if (result) {
     delete user.password_hash;
-    console.log(user);
+
+    if (process.env.ENABLE_SQL_LOGGING === "true") {
+      console.log("Authenticated User: ", user);
+    }
 
     return user;
   }
@@ -81,7 +83,7 @@ const authenticateUser = async (email, password) => {
 
 // ==========================================================================
 /**
- * Add a user as a volunteer for a project.
+ * Add user as a volunteer for a project.
  * Idempotent – does nothing if the user is already volunteered.
  * @param {number} projectId
  * @param {number} userId
@@ -96,24 +98,25 @@ const addUserToProject = async (projectId, userId) => {
   `;
   const queryParams = [projectId, userId];
   const results = await db.query(query, queryParams);
-
+  // ************************************* Change to flash message **************
   if (results.rows.length === 0)
     throw new Error("Error adding user to project. Try again later.");
+  // ****************************************************************************
 
   if (process.env.ENABLE_SQL_LOGGING === "true") {
     console.log(
       "Added user: ",
-      result.rows[0].user_id,
+      results.rows[0].user_id,
       " to project: ",
       results.rows[0].project_id,
     );
   }
 
-  return rows[0] || null;
+  return results.rows[0] || null;
 };
 
 /**
- * Remove a user from a project's volunteer list.
+ * Remove user as a volunteer for a project.
  * @param {number} projectId
  * @param {number} userId
  * @returns {Promise<boolean>} true if a row was deleted, false otherwise
@@ -132,7 +135,7 @@ const removeUserFromProject = async (projectId, userId) => {
 };
 
 /**
- * Retrieve all projects a user has volunteered for,
+ * Retrieve a list of all projects a user has volunteered for,
  * ordered by most recent volunteer action first.
  * @param {number} userId
  * @returns {Promise<object[]>} Array of project + volunteered_at rows
@@ -158,7 +161,13 @@ const getProjectsForUser = async (userId) => {
   return results;
 };
 
-const isUserVolunteering = async (userId, projectId) => {
+/**
+ * Returns true if user has volunteered for a project.
+ * @param {number} userId
+ * @param {number} projectId
+ * @returns {Promise<boolean>} true = is volunteering. false = not volunteering
+ */
+const getUserIsVolunteeringForProject = async (userId, projectId) => {
   const query = `
     SELECT
       user_id,
@@ -169,7 +178,7 @@ const isUserVolunteering = async (userId, projectId) => {
   `;
   const queryParams = [userId, projectId];
   const result = await db.query(query, queryParams);
-  if (result.length > 0) {
+  if (result.rows.length > 0) {
     return true;
   } else {
     return false;
@@ -185,5 +194,5 @@ export {
   addUserToProject,
   removeUserFromProject,
   getProjectsForUser,
-  isUserVolunteering,
+  getUserIsVolunteeringForProject,
 };

@@ -41,10 +41,12 @@ import {
   requireLogin,
   requireRole,
   showUsers,
+  addVolunteerToProject,
+  removeVolunteerFromProject,
 } from "./controllers/users.js";
 
 const router = express.Router();
-
+// Routes for all basic pages.
 router.get("/", showHomePage);
 router.get("/organizations", showOrganizationsPage);
 router.get("/organization/:id", showOrganizationDetailsPage);
@@ -115,7 +117,6 @@ router.post(
   requireRole("admin"),
   processAssignCategoriesForm,
 );
-
 // User registration routes
 router.get("/register", showUserRegistrationForm);
 router.post("/register", processUserRegistrationForm);
@@ -123,10 +124,17 @@ router.post("/register", processUserRegistrationForm);
 router.get("/login", showLoginForm);
 router.post("/login", processLoginForm);
 router.get("/logout", processLogout);
-// Dashboard with middleware checking
+// Dashboard with middleware checking.  Is user lagged in?
 router.get("/dashboard", requireLogin, showDashboard);
-
+// Route for users page.  Does user role == "admin"?
 router.get("/users", requireRole("admin"), showUsers);
+// Add/Remove volunteer status for project
+router.get("/project/volunteering/:id", requireLogin, addVolunteerToProject);
+router.get(
+  "/project/stopVolunteering/:id",
+  requireLogin,
+  removeVolunteerFromProject,
+);
 
 // error-handling routes
 router.get("/test-error", testErrorPage);
